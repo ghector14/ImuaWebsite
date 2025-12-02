@@ -9,6 +9,9 @@ nav {
     color: ;
     padding: 20px 50px;
 }
+button {
+    cursor: pointer;
+}
 .navTop {
     display: flex;
     justify-content: space-between;
@@ -42,11 +45,14 @@ nav {
     color: white;
     font-weight: 400;
 }
-
+.slider {
+    overflow: hidden;
+}
 
 .sliderWrapper {
     display: flex;
     width: 500vw;
+    transition: all .5s ease-in-out;
 }
 .sliderItem{
     width: 100vw;
@@ -72,4 +78,20 @@ nav {
     font-weight: 400;
     text-align: center;
     color: white;
+}
+
+.product {
+height: 100vh;
+color: white;
+position: relative;
+}
+.productImg {
+    width: 50%;
+}
+.productDetails {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    width: 40%;
+    padding: 50px;
 }
