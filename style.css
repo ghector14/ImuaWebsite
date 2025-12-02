@@ -95,3 +95,31 @@ position: relative;
     width: 40%;
     padding: 50px;
 }
+.productTitle {
+    font-size: 65px;
+    font-weight: 900;
+}
+.productDescription {
+    font-style: 24px;
+    color: gray;
+}
+.colors, .sizes {
+    display: flex;
+    margin-bottom: 20px;
+}
+.color {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: rgb(0, 0, 0);
+    margin-right: 10px;
+    cursor: pointer;
+}
+.size {
+    padding: 5px 20px;
+    border: 1px solid white;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
