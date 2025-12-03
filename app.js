@@ -12,6 +12,7 @@ const products = [
                 img: "./images/hat.png",
             },
         ],
+        sizes: ["One Size"],
     },
     {
         id: 2, 
@@ -23,6 +24,7 @@ const products = [
                 img: "./images/beanie.png",
             },
         ],
+        sizes: ["One Size"],
     },
     {
         id: 3, 
@@ -38,10 +40,11 @@ const products = [
                 img: "./images/whiteshirt.png",
             },
             {
-                code: "red",
+                code: "#8b0000",
                 img: "./images/redshirt.png",
             },
         ],
+        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
     },
     {
         id: 4, 
@@ -53,6 +56,7 @@ const products = [
                 img: "./images/hoodie.png",
             },
         ],
+        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
     },
     {
         id: 5, 
@@ -64,6 +68,7 @@ const products = [
                 img: "./images/pants.png",
             },
         ],
+        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
     },
 ];
 
@@ -89,5 +94,32 @@ menuItems.forEach((item, index) => {
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
+        //handle colors
+        currentProductColors.forEach((color,colorIndex) => {
+            if (choosenProduct.colors[colorIndex]) {
+                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
+                color.style.display = "block"; //show color 
+            } else {
+                color.style.display = "none"; //hidden extra colors
+            }
+        });
+        //handle sizes
+        currentProductSizes.forEach((size, sizeIndex) => {
+            if (choosenProduct.sizes[sizeIndex]) {
+                size.textContent= choosenProduct.sizes[sizeIndex];
+                size.style.display = "block";
+            }
+            else {
+                size.style.display = "none";
+            }
+        });
+    });
+});
+    
+currentProductColors.forEach((color, index) => {
+    color.addEventListener("click", () => {
+        if (choosenProduct.colors[index]) {
+            currentProductImg.src = choosenProduct.colors[index].img;
+         }
     });
 });
