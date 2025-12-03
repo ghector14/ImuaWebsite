@@ -1,15 +1,15 @@
-const wrapper = document.querySelector('.sliderWrapper')
-const menuItems = document.querySelectorAll(".menuItem")
+const wrapper = document.querySelector(".sliderWrapper");
+const menuItems = document.querySelectorAll(".menuItem");
 
 const products = [
     {
         id: 1, 
-        title: "Hats",
+        title: "IMUA Signature Hat",
         price: 20,
         colors: [
             {
                 code: "black",
-                img: "./img/black_hat-removebg-preview.png",
+                img: "./img/hat.png",
             },
         ],
     },
@@ -20,7 +20,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/black_beanie-removebg-preview.png",
+                img: "./img/beanie.png",
             },
         ],
     },
@@ -31,15 +31,15 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/black_hat-removebg-preview.png",
+                img: "./img/shirt.png",
             },
             {
                 code: "white",
-                img: "./img/whiteshirt-removebg-preview.png",
+                img: "./img/whiteshirt.png",
             },
             {
                 code: "red",
-                img: "./img/darkred-removebg-preview.png",
+                img: "./img/redshirt.png",
             },
         ],
     },
@@ -50,7 +50,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/black_hat-removebg-preview.png",
+                img: "./img/hoodie.png",
             },
         ],
     },
@@ -61,7 +61,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/black_hat-removebg-preview.png",
+                img: "./img/pants.png",
             },
         ],
     },
@@ -80,7 +80,7 @@ const currentProductSizes = document.querySelectorAll(".size");
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
         //change the current slide
-        wrapper.style.transform = `translateX(${ -100 * index}vw)`;
+        wrapper.style.transform = `translateX(${-100 * index}vw)`;
 
         //change the choosen product
         choosenProduct = products[index]
@@ -88,6 +88,6 @@ menuItems.forEach((item, index) => {
         //change text of currentProduct
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
-        
+        currentProductImg.src = choosenProduct.colors[0].img;
     });
 });
