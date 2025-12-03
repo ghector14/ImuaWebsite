@@ -9,7 +9,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/hat.png",
+                img: "./images/hat.png",
             },
         ],
     },
@@ -20,7 +20,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/beanie.png",
+                img: "./images/beanie.png",
             },
         ],
     },
@@ -31,15 +31,15 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/shirt.png",
+                img: "./images/shirt.png",
             },
             {
                 code: "white",
-                img: "./img/whiteshirt.png",
+                img: "./images/whiteshirt.png",
             },
             {
                 code: "red",
-                img: "./img/redshirt.png",
+                img: "./images/redshirt.png",
             },
         ],
     },
@@ -50,7 +50,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/hoodie.png",
+                img: "./images/hoodie.png",
             },
         ],
     },
@@ -61,7 +61,7 @@ const products = [
         colors: [
             {
                 code: "black",
-                img: "./img/pants.png",
+                img: "./images/pants.png",
             },
         ],
     },
