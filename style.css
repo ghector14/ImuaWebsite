@@ -134,6 +134,9 @@ position: relative;
     flex: 1;
     padding: 50px;
 }
+.galleryTittle {
+    font-weight: light;
+}
 .galleryImg {
     width: 100%;
 }

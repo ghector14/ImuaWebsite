@@ -6,6 +6,7 @@ const products = [
         id: 1, 
         title: "IMUA Signature Hat",
         price: 20,
+        description: "A sleek black essential built for speed and style. Lightweight, comfortable, and bold, made to move with you, on and off the run.",
         colors: [
             {
                 code: "black",
@@ -18,6 +19,7 @@ const products = [
         id: 2, 
         title: "Beanies",
         price: 20,
+        description: "Stay warm in style with our cozy IMUA beanie. Perfect for cold weather, training, or casual wear.",
         colors: [
             {
                 code: "black",
@@ -30,6 +32,7 @@ const products = [
         id: 3, 
         title: "Shirts",
         price: 25,
+        description: "This lightweight, breathable tee comes in Black, White and Wine Red. Designed to move with you and keep you locked in from training to those pre race nerves. ",
         colors: [
             {
                 code: "black",
@@ -50,6 +53,7 @@ const products = [
         id: 4, 
         title: "Hoodies",
         price: 35,
+        description: "Streetwear attitude meets runner's edge. Soft, durable, and clean in all the right ways. Wear it warm post run, or all day.",
         colors: [
             {
                 code: "black",
@@ -62,6 +66,7 @@ const products = [
         id: 5, 
         title: "Pants",
         price: 30,
+        description: "Black pants to match with everything. Train, warm up, or simply stay warm with our Imua signature pants.",
         colors: [
             {
                 code: "black",
@@ -79,6 +84,7 @@ const currentProductTitle = document.querySelector(".productTitle");
 const currentProductPrice = document.querySelector(".productPrice");
 const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
+const currentProductDescription = document.querySelector(".productDescription");
 
 
 
@@ -94,6 +100,8 @@ menuItems.forEach((item, index) => {
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
+        currentProductDescription.textContent = choosenProduct.description;
+
         //handle colors
         currentProductColors.forEach((color,colorIndex) => {
             if (choosenProduct.colors[colorIndex]) {
