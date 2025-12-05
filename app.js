@@ -1,3 +1,20 @@
+const landingPage = document.querySelector(".landingPage");
+const enterButton = document.querySelector(".enterButton");
+
+enterButton.addEventListener("click", () => {
+    landingPage.classList.add("hidden");
+    setTimeout(() => {
+        landingPage.style.display = "none";
+    }, 800);
+});
+
+const navLogo = document.querySelector(".navTop .navItem img");
+
+navLogo.addEventListener("click", () => {
+    landingPage.classList.remove("hidden");
+    landingPage.style.display = "flex";
+});
+
 const wrapper = document.querySelector(".sliderWrapper");
 const menuItems = document.querySelectorAll(".menuItem");
 
@@ -129,5 +146,56 @@ currentProductColors.forEach((color, index) => {
         if (choosenProduct.colors[index]) {
             currentProductImg.src = choosenProduct.colors[index].img;
          }
+    });
+});
+
+// Initialize the first product on page load
+currentProductColors.forEach((color, colorIndex) => {
+    if (choosenProduct.colors[colorIndex]) {
+        color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
+        color.style.display = "block";
+    } else {
+        color.style.display = "none";
+    }
+});
+
+//load page right
+currentProductSizes.forEach((size, sizeIndex) => {
+    if (choosenProduct.sizes[sizeIndex]) {
+        size.textContent = choosenProduct.sizes[sizeIndex];
+        size.style.display = "block";
+    } else {
+        size.style.display = "none";
+    }
+});
+
+//Shop Now button scroll
+const buyButtons = document.querySelectorAll(".buyButton");
+const productSection = document.querySelector(".product");
+
+buyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        productSection.scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+//Size button toggle
+currentProductSizes.forEach((size) => {
+    size.addEventListener("click", () => {
+        // Check if this size is already selected (white)
+        if (size.style.backgroundColor === "white") {
+            // If it's white, turn it back to black
+            size.style.backgroundColor = "black";
+            size.style.color = "white";
+        } else {
+            // Reset all sizes to black first
+            currentProductSizes.forEach((s) => {
+                s.style.backgroundColor = "black";
+                s.style.color = "white";
+            });
+            // Make the clicked size white
+            size.style.backgroundColor = "white";
+            size.style.color = "black";
+        }
     });
 });
