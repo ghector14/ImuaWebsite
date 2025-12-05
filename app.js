@@ -1,32 +1,3 @@
-const landingPage = document.querySelector(".landingPage");
-const enterButton = document.querySelector(".enterButton");
-const runnerTransition = document.querySelector(".runnerTransition");
-
-enterButton.addEventListener("click", () => {
-    // Hide landing page
-    landingPage.classList.add("hidden");
-    
-    // Show runner animation
-    setTimeout(() => {
-        landingPage.style.display = "none";
-        runnerTransition.classList.add("active");
-    }, 800);
-    
-    // Hide runner and show main site after animation
-    setTimeout(() => {
-        runnerTransition.style.display = "none";
-        document.body.classList.add("loaded"); // Show main content
-    }, 3500);
-});
-
-// Logo click to return to landing page
-const navLogo = document.querySelector(".navTop .navItem img");
-
-navLogo.addEventListener("click", () => {
-    landingPage.classList.remove("hidden");
-    landingPage.style.display = "flex";
-});
-
 const wrapper = document.querySelector(".sliderWrapper");
 const menuItems = document.querySelectorAll(".menuItem");
 
@@ -106,7 +77,7 @@ const products = [
     },
 ];
 
-let choosenProduct = products[0]
+let choosenProduct = products[0];
    
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
@@ -115,49 +86,106 @@ const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
 const currentProductDescription = document.querySelector(".productDescription");
 
+// Landing page, runner transition, and welcome screen
+const landingPage = document.querySelector(".landingPage");
+const enterButton = document.querySelector(".enterButton");
+const runnerTransition = document.querySelector(".runnerTransition");
+const welcomeScreen = document.querySelector(".welcomeScreen");
 
+enterButton.addEventListener("click", () => {
+    // Hide landing page
+    landingPage.classList.add("hidden");
+    
+    // Show runner animation
+    setTimeout(() => {
+        landingPage.style.display = "none";
+        runnerTransition.classList.add("active");
+    }, 800);
+    
+    // Hide runner and show welcome screen
+setTimeout(() => {
+    runnerTransition.style.display = "none";
+    welcomeScreen.classList.add("active");
+}, 3500);
 
+// Auto-hide welcome screen after 3 seconds and show main site
+setTimeout(() => {
+    welcomeScreen.classList.add("hidden");
+    document.body.classList.add("loaded");
+    setTimeout(() => {
+        welcomeScreen.style.display = "none";
+    }, 1000);
+}, 6500); // 3500ms (runner) + 3000ms (welcome display)
+});
+
+// When clicking any menu item, hide welcome screen and show main site
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
-        //change the current slide
+        // Hide welcome screen
+        welcomeScreen.classList.add("hidden");
+        setTimeout(() => {
+            welcomeScreen.style.display = "none";
+        }, 1000);
+        
+        // Show main content
+        document.body.classList.add("loaded");
+        
+        // Change the current slide
         wrapper.style.transform = `translateX(${-100 * index}vw)`;
-
-        //change the choosen product
-        choosenProduct = products[index]
-
-        //change text of currentProduct
+        
+        // Change the chosen product
+        choosenProduct = products[index];
+        
+        // Update product details
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
         currentProductDescription.textContent = choosenProduct.description;
 
-        //handle colors
-        currentProductColors.forEach((color,colorIndex) => {
+        // Handle colors
+        currentProductColors.forEach((color, colorIndex) => {
             if (choosenProduct.colors[colorIndex]) {
                 color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-                color.style.display = "block"; //show color 
+                color.style.display = "block";
             } else {
-                color.style.display = "none"; //hidden extra colors
+                color.style.display = "none";
             }
         });
-        //handle sizes
+        
+        // Handle sizes
         currentProductSizes.forEach((size, sizeIndex) => {
             if (choosenProduct.sizes[sizeIndex]) {
-                size.textContent= choosenProduct.sizes[sizeIndex];
+                size.textContent = choosenProduct.sizes[sizeIndex];
                 size.style.display = "block";
-            }
-            else {
+            } else {
                 size.style.display = "none";
             }
         });
     });
 });
+
+// Logo click to return to landing page
+const navLogo = document.querySelector(".navTop .navItem img");
+
+navLogo.addEventListener("click", () => {
+    // Hide main content
+    document.body.classList.remove("loaded");
     
+    // Show landing page again
+    landingPage.classList.remove("hidden");
+    landingPage.style.display = "flex";
+    
+    // Reset welcome screen for next entry
+    welcomeScreen.classList.remove("hidden");
+    welcomeScreen.classList.remove("active");
+});
+
+// Color dot clicks - changes the product image
 currentProductColors.forEach((color, index) => {
     color.addEventListener("click", () => {
         if (choosenProduct.colors[index]) {
             currentProductImg.src = choosenProduct.colors[index].img;
-         }
+        }
     });
 });
 
@@ -171,7 +199,6 @@ currentProductColors.forEach((color, colorIndex) => {
     }
 });
 
-//load page right
 currentProductSizes.forEach((size, sizeIndex) => {
     if (choosenProduct.sizes[sizeIndex]) {
         size.textContent = choosenProduct.sizes[sizeIndex];
@@ -181,7 +208,7 @@ currentProductSizes.forEach((size, sizeIndex) => {
     }
 });
 
-//Shop Now button scroll
+// Shop Now button scroll
 const buyButtons = document.querySelectorAll(".buyButton");
 const productSection = document.querySelector(".product");
 
@@ -191,21 +218,17 @@ buyButtons.forEach((button) => {
     });
 });
 
-//Size button toggle
+// Size button toggle
 currentProductSizes.forEach((size) => {
     size.addEventListener("click", () => {
-        // Check if this size is already selected (white)
         if (size.style.backgroundColor === "white") {
-            // If it's white, turn it back to black
             size.style.backgroundColor = "black";
             size.style.color = "white";
         } else {
-            // Reset all sizes to black first
             currentProductSizes.forEach((s) => {
                 s.style.backgroundColor = "black";
                 s.style.color = "white";
             });
-            // Make the clicked size white
             size.style.backgroundColor = "white";
             size.style.color = "black";
         }
