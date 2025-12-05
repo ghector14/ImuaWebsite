@@ -1,13 +1,25 @@
 const landingPage = document.querySelector(".landingPage");
 const enterButton = document.querySelector(".enterButton");
+const runnerTransition = document.querySelector(".runnerTransition");
 
 enterButton.addEventListener("click", () => {
+    // Hide landing page
     landingPage.classList.add("hidden");
+    
+    // Show runner animation
     setTimeout(() => {
         landingPage.style.display = "none";
+        runnerTransition.classList.add("active");
     }, 800);
+    
+    // Hide runner and show main site after animation
+    setTimeout(() => {
+        runnerTransition.style.display = "none";
+        document.body.classList.add("loaded"); // Show main content
+    }, 3500);
 });
 
+// Logo click to return to landing page
 const navLogo = document.querySelector(".navTop .navItem img");
 
 navLogo.addEventListener("click", () => {

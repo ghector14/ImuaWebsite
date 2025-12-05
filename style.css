@@ -4,6 +4,24 @@ body {
     padding: 0;
     margin: 0;
 }
+
+/* Hide main content initially */
+nav, .slider, .product, .gallery, footer {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+body.loaded nav,
+body.loaded .slider,
+body.loaded .product,
+body.loaded .gallery,
+body.loaded footer {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Landing Page */
 .landingPage {
     position: fixed;
     top: 0;
@@ -15,9 +33,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 10000;
     transition: opacity 0.8s ease;
-    perspective: 1000px; /* Add 3D perspective */
+    perspective: 1000px;
 }
 
 .landingPage.hidden {
@@ -26,15 +44,15 @@ body {
 }
 
 .landingLogo {
-    width: 600px; /* Made bigger */
-    height: 600px; /* Made bigger */
+    width: 600px;
+    height: 600px;
     animation: rotate3d 5s linear infinite;
     margin-bottom: 40px;
 }
 
 @keyframes rotate3d {
     from {
-        transform: rotateY(0deg); /* Rotate on Y-axis for side rotation */
+        transform: rotateY(0deg);
     }
     to {
         transform: rotateY(360deg);
@@ -43,41 +61,127 @@ body {
 
 .enterButton {
     cursor: pointer;
+    width: 500px;
     transition: all 0.3s ease;
-    width: 600px;
 }
+
 .enterButton:hover {
     transform: scale(1.05);
 }
 
+/* Runner Transition Screen */
+.runnerTransition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 9999;
+    display: none;
+    overflow: hidden;
+}
+
+.runnerTransition.active {
+    display: block;
+}
+
+.runner {
+    position: absolute;
+    bottom: 40%;
+    left: -100px;
+    width: 80px;
+    height: 120px;
+    background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+    clip-path: polygon(
+        50% 0%, 60% 15%, 70% 15%, 65% 30%, 
+        80% 50%, 75% 70%, 80% 100%, 70% 100%, 
+        65% 75%, 50% 85%, 35% 75%, 30% 100%, 
+        20% 100%, 25% 70%, 20% 50%, 35% 30%, 
+        30% 15%, 40% 15%
+    );
+    animation: runAcross 3s;
+}
+
+.shadow {
+    position: absolute;
+    bottom: 40%;
+    left: -100px;
+    width: 80px;
+    height: 120px;
+    background: rgb(154, 152, 152);
+    clip-path: polygon(
+        50% 0%, 60% 15%, 70% 15%, 65% 30%, 
+        80% 50%, 75% 70%, 80% 100%, 70% 100%, 
+        65% 75%, 50% 85%, 35% 75%, 30% 100%, 
+        20% 100%, 25% 70%, 20% 50%, 35% 30%, 
+        30% 15%, 40% 15%
+    );
+    animation: shadowRun 4.2s;
+    filter: blur(3px);
+}
+
+@keyframes runAcross {
+    0% {
+        left: -100px;
+        transform: scaleX(1);
+    }
+    50% {
+        left: 45%;
+    }
+    100% {
+        left: 110%;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes shadowRun {
+    0% {
+        left: -120px;
+        opacity: 0.3;
+    }
+    40% {
+        left: 40%;
+        opacity: 0.3;
+    }
+    100% {
+        left: 105%;
+        opacity: 0.1;
+    }
+}
 
 nav { 
     background-color: ; 
     color: ;
     padding: 20px 50px;
 }
+
 button {
     cursor: pointer;
 }
-.navTop .navItem img {
-    cursor: pointer;
-}
+
 .navTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+.navTop .navItem img {
+    cursor: pointer;
+}
+
 .search {
     background-color: #3e4d3d;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 10px;
 }
+
 .search input {
     background-color: transparent;
     border: none;
-    
 }
+
 .limitedOffer {
     color: white;
     font-size: 20px;
@@ -89,12 +193,14 @@ button {
     display: flex;
     justify-content: center;
 }
+
 .menuItem {
     margin-right: 50px;
     cursor: pointer;
     color: white;
     font-weight: 400;
 }
+
 .slider {
     overflow: hidden;
 }
@@ -104,6 +210,7 @@ button {
     width: 500vw;
     transition: all .5s ease-in-out;
 }
+
 .sliderItem{
     width: 100vw;
     display: flex;
@@ -111,6 +218,7 @@ button {
     justify-content: center;
     position: relative;
 }
+
 .sliderTitle {
     position: absolute;
     top: 10%;
@@ -120,6 +228,7 @@ button {
     text-align: center;
     color: white;
 }
+
 .sliderPrice {
     position: absolute;
     top: 10%;
@@ -131,13 +240,15 @@ button {
 }
 
 .product {
-height: 100vh;
-color: white;
-position: relative;
+    height: 100vh;
+    color: white;
+    position: relative;
 }
+
 .productImg {
     width: 50%;
 }
+
 .productDetails {
     position: absolute;
     top: 10%;
@@ -145,18 +256,22 @@ position: relative;
     width: 40%;
     padding: 50px;
 }
+
 .productTitle {
     font-size: 65px;
     font-weight: 900;
 }
+
 .productDescription {
     font-style: 24px;
     color: gray;
 }
+
 .colors, .sizes {
     display: flex;
     margin-bottom: 20px;
 }
+
 .color {
     width: 22px;
     height: 22px;
@@ -167,13 +282,18 @@ position: relative;
     cursor: pointer;
     display: block;
 }
+
 .size {
     padding: 5px 20px;
     border: 1px solid white;
     margin-right: 10px;
     cursor: pointer;
     font-size: 15px;
+    background-color: black;
+    color: white;
+    transition: all 0.3s ease;
 }
+
 .size:hover {
     background-color: white;
     color: black;
@@ -184,13 +304,16 @@ position: relative;
     display: flex;
     color: white;
 }
+
 .galleryItem {
     flex: 1;
     padding: 50px;
 }
+
 .galleryTittle {
-    font-weight: lighter;
+    font-weight: light;
 }
+
 .galleryImg {
     width: 100%;
 }
@@ -198,6 +321,7 @@ position: relative;
 footer {
     display: flex;
 }
+
 .footerLeft {
     flex: 2;
     color:white;
@@ -205,18 +329,22 @@ footer {
     justify-content: space-between;
     padding: 50px;
 }
+
 .fMenuTitle {
     font-size: 16px;
 }
+
 .fList {
     padding: 0;
     list-style: none;
 }
+
 .fListItem {
     margin-bottom: 10px;
     color: gray;
     cursor: pointer;
 }
+
 .footerRight {
     flex: 1;
     color: white;
@@ -225,21 +353,26 @@ footer {
     flex-direction: column;
     justify-content: space-between;
 }
+
 .fInput {
     padding: 5px;
 }
+
 .fButton {
     padding: 5px;
 }
+
 .fIcons {
     display: flex;
 }
+
 .fIcon {
     width: 20px;
     height: 20px;
     margin-right: 10px;
     cursor: pointer;
 }
+
 .copyright {
     font-weight: 300;
     font-size: 13px;
