@@ -78,6 +78,7 @@ const products = [
 ];
 
 let choosenProduct = products[0];
+let cartCount = 0;
    
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
@@ -86,11 +87,10 @@ const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
 const currentProductDescription = document.querySelector(".productDescription");
 
-// Landing page, runner transition, and welcome screen
+// Landing page and runner transition
 const landingPage = document.querySelector(".landingPage");
 const enterButton = document.querySelector(".enterButton");
 const runnerTransition = document.querySelector(".runnerTransition");
-const welcomeScreen = document.querySelector(".welcomeScreen");
 
 enterButton.addEventListener("click", () => {
     // Hide landing page
@@ -102,31 +102,16 @@ enterButton.addEventListener("click", () => {
         runnerTransition.classList.add("active");
     }, 800);
     
-    // Hide runner and show welcome screen
-setTimeout(() => {
-    runnerTransition.style.display = "none";
-    welcomeScreen.classList.add("active");
-}, 3500);
-
-// Auto-hide welcome screen after 3 seconds and show main site
-setTimeout(() => {
-    welcomeScreen.classList.add("hidden");
-    document.body.classList.add("loaded");
+    // Hide runner and show main site
     setTimeout(() => {
-        welcomeScreen.style.display = "none";
-    }, 1000);
-}, 6500); // 3500ms (runner) + 3000ms (welcome display)
+        runnerTransition.style.display = "none";
+        document.body.classList.add("loaded");
+    }, 3500);
 });
 
-// When clicking any menu item, hide welcome screen and show main site
+// When clicking any menu item, show main site
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
-        // Hide welcome screen
-        welcomeScreen.classList.add("hidden");
-        setTimeout(() => {
-            welcomeScreen.style.display = "none";
-        }, 1000);
-        
         // Show main content
         document.body.classList.add("loaded");
         
@@ -174,10 +159,6 @@ navLogo.addEventListener("click", () => {
     // Show landing page again
     landingPage.classList.remove("hidden");
     landingPage.style.display = "flex";
-    
-    // Reset welcome screen for next entry
-    welcomeScreen.classList.remove("hidden");
-    welcomeScreen.classList.remove("active");
 });
 
 // Color dot clicks - changes the product image
@@ -233,4 +214,27 @@ currentProductSizes.forEach((size) => {
             size.style.color = "black";
         }
     });
+});
+
+// Add to Cart functionality with 3D track animation
+const addToCartButton = document.querySelector(".addToCartButton");
+const cartCountElement = document.querySelector(".cart-count");
+const cartTrackAnimation = document.querySelector(".cart-track-animation");
+const cartIconContainer = document.querySelector(".cart-icon-container");
+
+addToCartButton.addEventListener("click", () => {
+    // Increment cart count
+    cartCount++;
+    cartCountElement.textContent = cartCount;
+    
+    // Add spinning track to cart icon
+    cartIconContainer.classList.add("has-items");
+    
+    // Show 3D track animation
+    cartTrackAnimation.classList.add("active");
+    
+    // Hide animation after 2 seconds
+    setTimeout(() => {
+        cartTrackAnimation.classList.remove("active");
+    }, 2000);
 });
