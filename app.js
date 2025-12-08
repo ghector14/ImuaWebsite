@@ -102,14 +102,15 @@ enterButton.addEventListener("click", () => {
         runnerTransition.classList.add("active");
     }, 800);
     
-    // Hide runner and show main site
+    // Hide track transition and show main site
     setTimeout(() => {
-        runnerTransition.style.display = "none";
-        document.body.classList.add("loaded");
-    }, 3500);
+    runnerTransition.style.display = "none";
+    document.body.classList.add("loaded");
+    }, 2500);
 });
 
 // When clicking any menu item, show main site
+
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
         // Show main content
@@ -237,4 +238,48 @@ addToCartButton.addEventListener("click", () => {
     setTimeout(() => {
         cartTrackAnimation.classList.remove("active");
     }, 2000);
+});
+
+const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
+
+footerProducts.forEach((link, index) => {
+    link.addEventListener("click", () => {
+        // Show main content
+        document.body.classList.add("loaded");
+        
+        // Scroll to product section
+        productSection.scrollIntoView({ behavior: "smooth" });
+        
+        // Change the current slide
+        wrapper.style.transform = `translateX(${-100 * index}vw)`;
+        
+        // Change the chosen product
+        choosenProduct = products[index];
+        
+        // Update product details
+        currentProductTitle.textContent = choosenProduct.title;
+        currentProductPrice.textContent = "$" + choosenProduct.price;
+        currentProductImg.src = choosenProduct.colors[0].img;
+        currentProductDescription.textContent = choosenProduct.description;
+
+        // Handle colors
+        currentProductColors.forEach((color, colorIndex) => {
+            if (choosenProduct.colors[colorIndex]) {
+                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
+                color.style.display = "block";
+            } else {
+                color.style.display = "none";
+            }
+        });
+        
+        // Handle sizes
+        currentProductSizes.forEach((size, sizeIndex) => {
+            if (choosenProduct.sizes[sizeIndex]) {
+                size.textContent = choosenProduct.sizes[sizeIndex];
+                size.style.display = "block";
+            } else {
+                size.style.display = "none";
+            }
+        });
+    });
 });
