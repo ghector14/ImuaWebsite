@@ -78,7 +78,7 @@ const products = [
 ];
 
 let choosenProduct = products[0];
-let cartCount = 0;
+let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
    
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
@@ -86,11 +86,77 @@ const currentProductPrice = document.querySelector(".productPrice");
 const currentProductColors = document.querySelectorAll(".color");
 const currentProductSizes = document.querySelectorAll(".size");
 const currentProductDescription = document.querySelector(".productDescription");
+const cartCountElement = document.querySelector(".cart-count");
+const cartIconContainer = document.querySelector(".cart-icon-container");
+
+// Initialize cart on page load
+if (cartCount > 0) {
+    cartCountElement.textContent = cartCount;
+    cartIconContainer.classList.add("has-items");
+}
 
 // Landing page and runner transition
 const landingPage = document.querySelector(".landingPage");
 const enterButton = document.querySelector(".enterButton");
 const runnerTransition = document.querySelector(".runnerTransition");
+const productSection = document.querySelector(".product");
+
+// Check if coming from product link
+window.addEventListener("DOMContentLoaded", () => {
+    const hash = window.location.hash;
+    
+    if (hash.startsWith("#product-")) {
+        const productIndex = parseInt(hash.replace("#product-", ""));
+        
+        // Instantly hide landing and transition (no animation)
+        landingPage.style.display = "none";
+        runnerTransition.style.display = "none";
+        document.body.classList.add("loaded");
+        
+        // Set wrapper position instantly (no transition)
+        wrapper.style.transition = "none";
+        wrapper.style.transform = `translateX(${-100 * productIndex}vw)`;
+        
+        // Restore transition after positioning
+        setTimeout(() => {
+            wrapper.style.transition = "all .5s ease-in-out";
+        }, 50);
+        
+        // Change to the selected product
+        choosenProduct = products[productIndex];
+        
+        // Update product details
+        currentProductTitle.textContent = choosenProduct.title;
+        currentProductPrice.textContent = "$" + choosenProduct.price;
+        currentProductImg.src = choosenProduct.colors[0].img;
+        currentProductDescription.textContent = choosenProduct.description;
+
+        // Handle colors
+        currentProductColors.forEach((color, colorIndex) => {
+            if (choosenProduct.colors[colorIndex]) {
+                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
+                color.style.display = "block";
+            } else {
+                color.style.display = "none";
+            }
+        });
+        
+        // Handle sizes
+        currentProductSizes.forEach((size, sizeIndex) => {
+            if (choosenProduct.sizes[sizeIndex]) {
+                size.textContent = choosenProduct.sizes[sizeIndex];
+                size.style.display = "block";
+            } else {
+                size.style.display = "none";
+            }
+        });
+        
+        // Scroll to product smoothly
+        setTimeout(() => {
+            productSection.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+    }
+});
 
 enterButton.addEventListener("click", () => {
     // Hide landing page
@@ -104,13 +170,12 @@ enterButton.addEventListener("click", () => {
     
     // Hide track transition and show main site
     setTimeout(() => {
-    runnerTransition.style.display = "none";
-    document.body.classList.add("loaded");
+        runnerTransition.style.display = "none";
+        document.body.classList.add("loaded");
     }, 2500);
 });
 
 // When clicking any menu item, show main site
-
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
         // Show main content
@@ -192,7 +257,6 @@ currentProductSizes.forEach((size, sizeIndex) => {
 
 // Shop Now button scroll
 const buyButtons = document.querySelectorAll(".buyButton");
-const productSection = document.querySelector(".product");
 
 buyButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -219,14 +283,15 @@ currentProductSizes.forEach((size) => {
 
 // Add to Cart functionality with 3D track animation
 const addToCartButton = document.querySelector(".addToCartButton");
-const cartCountElement = document.querySelector(".cart-count");
 const cartTrackAnimation = document.querySelector(".cart-track-animation");
-const cartIconContainer = document.querySelector(".cart-icon-container");
 
 addToCartButton.addEventListener("click", () => {
     // Increment cart count
     cartCount++;
     cartCountElement.textContent = cartCount;
+    
+    // Save to localStorage
+    localStorage.setItem('cartCount', cartCount);
     
     // Add spinning track to cart icon
     cartIconContainer.classList.add("has-items");
@@ -240,6 +305,7 @@ addToCartButton.addEventListener("click", () => {
     }, 2000);
 });
 
+// Footer product links
 const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
 
 footerProducts.forEach((link, index) => {

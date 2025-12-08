@@ -673,3 +673,223 @@ footer {
     font-weight: 300;
     font-size: 13px;
 }
+
+/* Story Page Styles */
+.story-page {
+    min-height: 100vh;
+    padding-top: 20px;
+    color: white;
+}
+
+.story-hero {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+    overflow: hidden;
+}
+
+.hero-image {
+   display: none;
+}
+
+.story-title {
+    position: relative;
+    z-index: 2;
+    font-size: 100px;
+    font-weight: 900;
+    letter-spacing: 15px;
+    text-shadow: 0 0 40px rgba(255, 50, 50, 0.8);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.story-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 50px 100px;
+}
+
+.story-section {
+    margin-bottom: 80px;
+    animation: fadeInUp 1s ease;
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-top: 5px;
+    color: #5b0800;
+    letter-spacing: 3px;
+}
+
+.story-text {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #cccccc;
+    margin-bottom: 25px;
+}
+
+.story-highlight {
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 50px;
+    letter-spacing: 5px;
+    line-height: 1.5;
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 50, 50, 0.6);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contact Page Styles */
+.contact-page {
+    min-height: 50vh;
+    padding: 1px 50px 100px;
+    color: white;
+}
+
+.contact-title {
+    font-size: 100px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 15px;
+    color: #5b0800;
+    margin-bottom: 180px;
+    text-shadow: 0 0 40px rgba(91, 8, 0, 0.5);
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contact-heading {
+    font-size: 48px;
+    font-weight: 900;
+    color: #5b0800;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.contact-text {
+    font-size: 20px;
+    color: white;
+    line-height: 1.6;
+}
+
+.contact-email {
+    margin-top: 30px;
+}
+
+.contact-subheading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #5b0800;
+    margin-bottom: 10px;
+}
+
+.email-link {
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.email-link:hover {
+    color: #5b0800;
+}
+
+.contact-form-container {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 5px 20px 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(91, 8, 0, 0.3);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-input,
+.form-textarea {
+    background-color: #3e4d3d;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(91, 8, 0, 0.5);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-submit {
+    background-color: #5b0800;
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.form-submit:hover {
+    background-color: #7a0a00;
+    box-shadow: 0 0 20px rgba(91, 8, 0, 0.6);
+    transform: translateY(-2px);
+}
+
+.form-success {
+    display: none;
+    font-size: 20px;
+    color: #5b0800;
+    text-align: center;
+    font-weight: 700;
+    padding: 20px;
+    background: rgba(91, 8, 0, 0.1);
+    border-radius: 5px;
+}
