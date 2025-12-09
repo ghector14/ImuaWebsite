@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <title>Athlete Stories - IMUA Athletics</title>
+</head>
+<body class="loaded">
+    <nav>
+        <div class="navTop">
+            <div class="navItem">
+                <a href="index.html">
+                    <img src="./images/imualogoo.PNG" width="150" height="150" alt="Imua Track Club Logo">
+                </a>
+            </div>
+            <div class="navItem">
+                <div class="search">
+                    <input type="text" placeholder="" class="searchInput">
+                    <img src="./images/iconmonstr-magnifier-5.svg" width="20" height="20" class="searchIcon">
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FW 25</span>
+                <div class="cart-icon-container">
+                    <span class="cartIcon">🛒</span>
+                    <span class="cart-count">0</span>
+                    <div class="mini-track-container">
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                        <div class="mini-track-lane"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="stories-page">
+        <h1 class="stories-title">ATHLETE STORIES</h1>
+        <p class="stories-subtitle">Meet the runners who embody IMUA Athletics</p>
+
+        <div class="athletes-grid">
+            <div class="athlete-card" data-athlete="0">
+                <div class="athlete-image">
+                    <img src="./images/athlete-keanu.jpg" alt="">
+                </div>
+                <h3 class="athlete-name">Keanu Daos</h3>
+            </div>
+
+            <div class="athlete-card" data-athlete="1">
+                <div class="athlete-image">
+                    <img src="./images/athlete-hector.jpg" alt="">
+                </div>
+                <h3 class="athlete-name">Hector Gomez</h3>
+            </div>
+
+            <div class="athlete-card" data-athlete="2">
+                <div class="athlete-image">
+                    <img src="./images/athlete-colby.jpg" alt="">
+                </div>
+                <h3 class="athlete-name">Colby Lundstrom</h3>
+            </div>
+
+            <div class="athlete-card" data-athlete="3">
+                <div class="athlete-image">
+                    <div class="placeholder-image">AP</div>
+                </div>
+                <h3 class="athlete-name">Alicia Patel</h3>
+            </div>
+
+            <div class="athlete-card" data-athlete="4">
+                <div class="athlete-image">
+                    <div class="placeholder-image">DN</div>
+                </div>
+                <h3 class="athlete-name">David Nguyen</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Popup -->
+    <div class="athlete-modal" id="athleteModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-athlete-image">
+                <div class="placeholder-image-large" id="modalImage"></div>
+            </div>
+            <h2 class="modal-athlete-name" id="modalName"></h2>
+            <div class="modal-info">
+                <h3 class="modal-section-title">Bio</h3>
+                <p class="modal-text" id="modalBio"></p>
+                
+                <h3 class="modal-section-title">Why I Run</h3>
+                <p class="modal-text" id="modalWhy"></p>
+                
+                <h3 class="modal-section-title">What IMUA Means to Me</h3>
+                <p class="modal-text" id="modalImua"></p>
+                
+                <div class="modal-socials" id="modalSocials"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTittle">About</h1>
+                <ul class="fList">
+                    <li class="fListItem"><a href="company.html" style="color: gray; text-decoration: none;">Our Story</a></li>
+                    <li class="fListItem"><a href="contact.html" style="color: gray; text-decoration: none;">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTittle">Community</h1>
+                <ul class="fList">
+                    <li class="fListItem"><a href="stories.html" style="color: gray; text-decoration: none;">Athlete Stories</a></li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTittle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Hats</li>
+                    <li class="fListItem">Beanies</li>
+                    <li class="fListItem">Shirts</li>
+                    <li class="fListItem">Hoodies</li>
+                    <li class="fListItem">Pants</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput">
+                    <button class="fButton">Join</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <a href="https://www.instagram.com/imuaathletics/" target="blank">
+                        <img src="./images/instagram.webp" alt="" class="fIcon"> 
+                    </a>
+                    <a href="" target="blank">
+                        <img src="./images/fb.png" alt="" class="fIcon">
+                    </a>
+                    <a href="https://www.pinterest.com/imuaathletics/" target="blank">
+                        <img src="./images/pin.webp" alt="" class="fIcon">
+                    </a>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">@Imua Athletics. All right reserved. 2025.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize cart
+        const cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        const cartCountElement = document.querySelector(".cart-count");
+        const cartIconContainer = document.querySelector(".cart-icon-container");
+
+        if (cartCount > 0) {
+            cartCountElement.textContent = cartCount;
+            cartIconContainer.classList.add("has-items");
+        }
+
+        // Footer product links
+        const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
+        
+        footerProducts.forEach((link, index) => {
+            link.addEventListener("click", () => {
+                window.location.href = `index.html#product-${index}`;
+            });
+        });
+
+        // Athlete data
+        const athletes = [
+            {
+                name: "Keanu Daos",
+                initials: "KD",
+                bio: "800m runner from Pasco High. Started running track sophomore year and hasn't looked back. Currently training for sub-1:50.",
+                why: "Running taught me discipline. Every workout is a choice to show up and prove something to myself.",
+                imua: "IMUA means no excuses. When I put on this gear, I'm committing to push past whatever I was yesterday.",
+                instagram: "@_coach._k",
+            },
+            {
+                name: "Sarah Kim",
+                initials: "SK",
+                bio: "Distance runner and pre-med student. Balances 60-mile weeks with organic chemistry. 5K PR: 17:42.",
+                why: "Running is my meditation. It's the only time my mind is completely clear and focused on one thing.",
+                imua: "To me, IMUA represents consistency. It's about showing up day after day, even when progress feels slow.",
+                instagram: "@sarahkimruns",
+            },
+            {
+                name: "Jordan Thompson",
+                initials: "JT",
+                bio: "Sprinter and long jumper. Former football player who found his true calling on the track. 100m PR: 10.89.",
+                why: "I run because it's pure. Just me, the clock, and the finish line. No one else can do it for me.",
+                imua: "IMUA is that voice in my head at the starting line reminding me I've already won the battle against doubt.",
+                instagram: "@jthompson_speed",
+            },
+            {
+                name: "Alicia Patel",
+                initials: "AP",
+                bio: "Steeplechaser and environmental science major. Found running as therapy during college. Now chasing Olympic Trials standards.",
+                why: "Running saved me. It gave me purpose when I felt lost and showed me I'm capable of more than I thought.",
+                imua: "IMUA means forward motion. Even on hard days, even when I stumble, I keep moving forward.",
+                instagram: "@alicia_steeple",
+            },
+            {
+                name: "David Nguyen",
+                initials: "DN",
+                bio: "Marathon runner and high school coach. Came back to Tri-Cities to give back to the community. Boston qualifier.",
+                why: "I run to inspire the next generation. Every mile I log, I'm showing my athletes what dedication looks like.",
+                imua: "IMUA is a promise. A promise to myself and my athletes that quitting is never an option.",
+                instagram: "@coach_nguyen",
+            }
+        ];
+
+        // Modal functionality
+        const modal = document.getElementById('athleteModal');
+        const modalClose = document.querySelector('.modal-close');
+        const athleteCards = document.querySelectorAll('.athlete-card');
+
+        athleteCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const athleteIndex = card.getAttribute('data-athlete');
+                const athlete = athletes[athleteIndex];
+                
+                // Populate modal
+                const modalImageDiv = document.getElementById('modalImage');
+                modalImageDiv.innerHTML = `<img src="./images/athlete-${athlete.name.split(' ')[0].toLowerCase()}.jpg" alt="${athlete.name}">`;
+                document.getElementById('modalName').textContent = athlete.name;
+                document.getElementById('modalBio').textContent = athlete.bio;
+                document.getElementById('modalWhy').textContent = athlete.why;
+                document.getElementById('modalImua').textContent = athlete.imua;
+                
+                // Socials
+                const socialsDiv = document.getElementById('modalSocials');
+                socialsDiv.innerHTML = '';
+                if (athlete.instagram) {
+                    socialsDiv.innerHTML += `<a href="https://instagram.com/${athlete.instagram.replace('@', '')}" target="_blank" class="social-link">📷 ${athlete.instagram}</a>`;
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
