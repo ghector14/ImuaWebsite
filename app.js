@@ -77,8 +77,14 @@ const products = [
     },
 ];
 
+
 let choosenProduct = products[0];
-let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+let selectedSize = null;
+let selectedColor = null;
+
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cartCount = cart.length;
    
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
@@ -108,30 +114,24 @@ window.addEventListener("DOMContentLoaded", () => {
     if (hash.startsWith("#product-")) {
         const productIndex = parseInt(hash.replace("#product-", ""));
         
-        // Instantly hide landing and transition (no animation)
         landingPage.style.display = "none";
         runnerTransition.style.display = "none";
         document.body.classList.add("loaded");
         
-        // Set wrapper position instantly (no transition)
         wrapper.style.transition = "none";
         wrapper.style.transform = `translateX(${-100 * productIndex}vw)`;
         
-        // Restore transition after positioning
         setTimeout(() => {
             wrapper.style.transition = "all .5s ease-in-out";
         }, 50);
         
-        // Change to the selected product
         choosenProduct = products[productIndex];
         
-        // Update product details
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
         currentProductDescription.textContent = choosenProduct.description;
 
-        // Handle colors
         currentProductColors.forEach((color, colorIndex) => {
             if (choosenProduct.colors[colorIndex]) {
                 color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
@@ -141,7 +141,6 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
         
-        // Handle sizes
         currentProductSizes.forEach((size, sizeIndex) => {
             if (choosenProduct.sizes[sizeIndex]) {
                 size.textContent = choosenProduct.sizes[sizeIndex];
@@ -151,7 +150,6 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
         
-        // Scroll to product smoothly
         setTimeout(() => {
             productSection.scrollIntoView({ behavior: "smooth" });
         }, 100);
@@ -159,41 +157,33 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 enterButton.addEventListener("click", () => {
-    // Hide landing page
     landingPage.classList.add("hidden");
     
-    // Show runner animation
     setTimeout(() => {
         landingPage.style.display = "none";
         runnerTransition.classList.add("active");
     }, 800);
     
-    // Hide track transition and show main site
     setTimeout(() => {
         runnerTransition.style.display = "none";
         document.body.classList.add("loaded");
     }, 2500);
 });
 
-// When clicking any menu item, show main site
 menuItems.forEach((item, index) => {
     item.addEventListener("click", () => {
-        // Show main content
         document.body.classList.add("loaded");
         
-        // Change the current slide
         wrapper.style.transform = `translateX(${-100 * index}vw)`;
         
-        // Change the chosen product
         choosenProduct = products[index];
         
-        // Update product details
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
         currentProductDescription.textContent = choosenProduct.description;
+        selectedColor = choosenProduct.colors[0].img;
 
-        // Handle colors
         currentProductColors.forEach((color, colorIndex) => {
             if (choosenProduct.colors[colorIndex]) {
                 color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
@@ -203,7 +193,6 @@ menuItems.forEach((item, index) => {
             }
         });
         
-        // Handle sizes
         currentProductSizes.forEach((size, sizeIndex) => {
             if (choosenProduct.sizes[sizeIndex]) {
                 size.textContent = choosenProduct.sizes[sizeIndex];
@@ -212,31 +201,37 @@ menuItems.forEach((item, index) => {
                 size.style.display = "none";
             }
         });
+        
+        // Reset selections
+        selectedSize = null;
+        selectedColor = choosenProduct.colors[0].img;
     });
 });
 
-// Logo click to return to landing page
 const navLogo = document.querySelector(".navTop .navItem img");
 
 navLogo.addEventListener("click", () => {
-    // Hide main content
-    document.body.classList.remove("loaded");
-    
-    // Show landing page again
-    landingPage.classList.remove("hidden");
-    landingPage.style.display = "flex";
+    // If already on home page, just scroll to top and show products
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+        landingPage.style.display = "none";
+        runnerTransition.style.display = "none";
+        document.body.classList.add("loaded");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        // If on another page, go to home
+        window.location.href = "index.html";
+    }
 });
 
-// Color dot clicks - changes the product image
 currentProductColors.forEach((color, index) => {
     color.addEventListener("click", () => {
         if (choosenProduct.colors[index]) {
             currentProductImg.src = choosenProduct.colors[index].img;
+            selectedColor = choosenProduct.colors[index].img;
         }
     });
 });
 
-// Initialize the first product on page load
 currentProductColors.forEach((color, colorIndex) => {
     if (choosenProduct.colors[colorIndex]) {
         color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
@@ -255,7 +250,6 @@ currentProductSizes.forEach((size, sizeIndex) => {
     }
 });
 
-// Shop Now button scroll
 const buyButtons = document.querySelectorAll(".buyButton");
 
 buyButtons.forEach((button) => {
@@ -264,12 +258,12 @@ buyButtons.forEach((button) => {
     });
 });
 
-// Size button toggle
 currentProductSizes.forEach((size) => {
     size.addEventListener("click", () => {
         if (size.style.backgroundColor === "white") {
             size.style.backgroundColor = "black";
             size.style.color = "white";
+            selectedSize = null;
         } else {
             currentProductSizes.forEach((s) => {
                 s.style.backgroundColor = "black";
@@ -277,58 +271,61 @@ currentProductSizes.forEach((size) => {
             });
             size.style.backgroundColor = "white";
             size.style.color = "black";
+            selectedSize = size.textContent;
         }
     });
 });
 
-// Add to Cart functionality with 3D track animation
 const addToCartButton = document.querySelector(".addToCartButton");
 const cartTrackAnimation = document.querySelector(".cart-track-animation");
 
 addToCartButton.addEventListener("click", () => {
-    // Increment cart count
-    cartCount++;
+    if (!selectedSize) {
+        alert("Please select a size!");
+        return;
+    }
+    
+    const cartItem = {
+        id: Date.now(),
+        product: choosenProduct.title,
+        price: choosenProduct.price,
+        size: selectedSize,
+        color: selectedColor,
+        image: currentProductImg.src
+    };
+    
+    cart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    cartCount = cart.length;
     cartCountElement.textContent = cartCount;
     
-    // Save to localStorage
-    localStorage.setItem('cartCount', cartCount);
-    
-    // Add spinning track to cart icon
     cartIconContainer.classList.add("has-items");
     
-    // Show 3D track animation
     cartTrackAnimation.classList.add("active");
     
-    // Hide animation after 2 seconds
     setTimeout(() => {
         cartTrackAnimation.classList.remove("active");
     }, 2000);
 });
 
-// Footer product links
 const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
 
 footerProducts.forEach((link, index) => {
     link.addEventListener("click", () => {
-        // Show main content
         document.body.classList.add("loaded");
         
-        // Scroll to product section
         productSection.scrollIntoView({ behavior: "smooth" });
         
-        // Change the current slide
         wrapper.style.transform = `translateX(${-100 * index}vw)`;
         
-        // Change the chosen product
         choosenProduct = products[index];
         
-        // Update product details
         currentProductTitle.textContent = choosenProduct.title;
         currentProductPrice.textContent = "$" + choosenProduct.price;
         currentProductImg.src = choosenProduct.colors[0].img;
         currentProductDescription.textContent = choosenProduct.description;
 
-        // Handle colors
         currentProductColors.forEach((color, colorIndex) => {
             if (choosenProduct.colors[colorIndex]) {
                 color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
@@ -338,7 +335,6 @@ footerProducts.forEach((link, index) => {
             }
         });
         
-        // Handle sizes
         currentProductSizes.forEach((size, sizeIndex) => {
             if (choosenProduct.sizes[sizeIndex]) {
                 size.textContent = choosenProduct.sizes[sizeIndex];
@@ -349,3 +345,60 @@ footerProducts.forEach((link, index) => {
         });
     });
 });
+
+// Cart Side Panel
+cartIconContainer.addEventListener("click", () => {
+    document.getElementById('cartPanel').classList.add('active');
+    renderCart();
+});
+
+function renderCart() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        cartTotal.textContent = '$0';
+        return;
+    }
+    
+    let total = 0;
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        total += item.price;
+        
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.innerHTML = `
+            <img src="${item.image}" alt="${item.product}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h4 class="cart-item-name">${item.product}</h4>
+                <p class="cart-item-size">Size: ${item.size}</p>
+                <p class="cart-item-price">$${item.price}</p>
+            </div>
+            <button class="cart-item-delete" data-id="${item.id}">✕</button>
+        `;
+        
+        cartItemsContainer.appendChild(cartItemDiv);
+    });
+    
+    cartTotal.textContent = `$${total}`;
+    
+    // Add delete functionality
+    document.querySelectorAll('.cart-item-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cartCount = cart.length;
+            cartCountElement.textContent = cartCount;
+            
+            if (cartCount === 0) {
+                cartIconContainer.classList.remove("has-items");
+            }
+            
+            renderCart();
+        });
+    });
+}

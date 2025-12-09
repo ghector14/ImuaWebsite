@@ -45,7 +45,7 @@
 
     <div class="stories-page">
         <h1 class="stories-title">ATHLETE STORIES</h1>
-        <p class="stories-subtitle">Meet the runners who embody IMUA Athletics</p>
+        <p class="stories-subtitle">Meet the athletes who embody IMUA Athletics.</p>
 
         <div class="athletes-grid">
             <div class="athlete-card" data-athlete="0">
@@ -71,17 +71,11 @@
 
             <div class="athlete-card" data-athlete="3">
                 <div class="athlete-image">
-                    <div class="placeholder-image">AP</div>
+                    <img src="./images/athlete-jesse.jpg" alt="">
                 </div>
-                <h3 class="athlete-name">Alicia Patel</h3>
+                <h3 class="athlete-name">Jesse Todd</h3>
             </div>
 
-            <div class="athlete-card" data-athlete="4">
-                <div class="athlete-image">
-                    <div class="placeholder-image">DN</div>
-                </div>
-                <h3 class="athlete-name">David Nguyen</h3>
-            </div>
         </div>
     </div>
 
@@ -162,14 +156,32 @@
         </div>
     </footer>
 
+    <!-- Cart Side Panel -->
+<div class="cart-panel" id="cartPanel">
+    <div class="cart-panel-content">
+        <div class="cart-header">
+            <h2 class="cart-title">YOUR CART</h2>
+            <span class="cart-close" onclick="document.getElementById('cartPanel').classList.remove('active')">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">TOTAL:</span>
+                <span class="cart-total-amount" id="cartTotal">$0</span>
+            </div>
+            <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
+        </div>
+    </div>
+</div>
+
     <script>
-        // Initialize cart
-        const cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+       // Initialize cart on page
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartCountElement = document.querySelector(".cart-count");
         const cartIconContainer = document.querySelector(".cart-icon-container");
 
-        if (cartCount > 0) {
-            cartCountElement.textContent = cartCount;
+        if (cart.length > 0) {
+            cartCountElement.textContent = cart.length;
             cartIconContainer.classList.add("has-items");
         }
 
@@ -187,44 +199,73 @@
             {
                 name: "Keanu Daos",
                 initials: "KD",
-                bio: "800m runner from Pasco High. Started running track sophomore year and hasn't looked back. Currently training for sub-1:50.",
+                bio: "Founder of IMUA Athletics, Keanu ran for Spokane falls and later for Western Oregon. Keanu believes in chasing after your goals no matter what. Chasing the Olympic trials marathon standard he will keep going until it is fullfilled.",
                 why: "Running taught me discipline. Every workout is a choice to show up and prove something to myself.",
                 imua: "IMUA means no excuses. When I put on this gear, I'm committing to push past whatever I was yesterday.",
                 instagram: "@_coach._k",
             },
             {
-                name: "Sarah Kim",
-                initials: "SK",
-                bio: "Distance runner and pre-med student. Balances 60-mile weeks with organic chemistry. 5K PR: 17:42.",
+                name: "Hector Gomez",
+                initials: "HG",
+                bio: "Started running senior year of High School, Hector believes he still has untapped potential, already running 4:10 in the mile he is going for the Mexican 3k steeplechase record.",
                 why: "Running is my meditation. It's the only time my mind is completely clear and focused on one thing.",
                 imua: "To me, IMUA represents consistency. It's about showing up day after day, even when progress feels slow.",
-                instagram: "@sarahkimruns",
+                instagram: "@ghector14",
             },
             {
-                name: "Jordan Thompson",
-                initials: "JT",
-                bio: "Sprinter and long jumper. Former football player who found his true calling on the track. 100m PR: 10.89.",
+                name: "Colby Lundstrum",
+                initials: "CL",
+                bio: "Avid outddors man growing up in Oregon, Colby has always loved to run and push himself, qualifying for the Boston Marathon Colby is ready to tackle anything that comes his way.",
                 why: "I run because it's pure. Just me, the clock, and the finish line. No one else can do it for me.",
                 imua: "IMUA is that voice in my head at the starting line reminding me I've already won the battle against doubt.",
                 instagram: "@jthompson_speed",
             },
             {
-                name: "Alicia Patel",
-                initials: "AP",
-                bio: "Steeplechaser and environmental science major. Found running as therapy during college. Now chasing Olympic Trials standards.",
+                name: "Jesse Todd",
+                initials: "JT",
+                bio: "Jesse, the 'Tank' Todd. He can do anything from benchpress 500 pounds to running a Marathon. Doing it for the love of sport, Jesse is always up for a challenge.",
                 why: "Running saved me. It gave me purpose when I felt lost and showed me I'm capable of more than I thought.",
                 imua: "IMUA means forward motion. Even on hard days, even when I stumble, I keep moving forward.",
-                instagram: "@alicia_steeple",
+                instagram: "@jesse.6471",
             },
-            {
-                name: "David Nguyen",
-                initials: "DN",
-                bio: "Marathon runner and high school coach. Came back to Tri-Cities to give back to the community. Boston qualifier.",
-                why: "I run to inspire the next generation. Every mile I log, I'm showing my athletes what dedication looks like.",
-                imua: "IMUA is a promise. A promise to myself and my athletes that quitting is never an option.",
-                instagram: "@coach_nguyen",
-            }
         ];
+
+        // Search functionality
+const searchInput = document.querySelector('.searchInput');
+
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase().trim();
+    const athleteCards = document.querySelectorAll('.athlete-card');
+    
+    athleteCards.forEach((card, index) => {
+        const athlete = athletes[index];
+        const nameMatch = athlete.name.toLowerCase().includes(searchTerm);
+        
+        if (nameMatch || searchTerm === '') {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    const visibleCards = document.querySelectorAll('.athlete-card[style="display: block;"]');
+    const grid = document.querySelector('.athletes-grid');
+    
+    let noResultsMsg = document.getElementById('noResults');
+    
+    if (visibleCards.length === 0 && searchTerm !== '') {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('p');
+            noResultsMsg.id = 'noResults';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = 'No athletes found';
+            grid.appendChild(noResultsMsg);
+        }
+    } else {
+        if (noResultsMsg) {
+            noResultsMsg.remove();
+        }
+    }
+});
 
         // Modal functionality
         const modal = document.getElementById('athleteModal');
@@ -265,6 +306,65 @@
                 modal.classList.remove('active');
             }
         });
+        // Cart Side Panel functionality
+cartIconContainer.addEventListener("click", () => {
+    document.getElementById('cartPanel').classList.add('active');
+    renderCart();
+});
+
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        cartTotal.textContent = '$0';
+        return;
+    }
+    
+    let total = 0;
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        total += item.price;
+        
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.innerHTML = `
+            <img src="${item.image}" alt="${item.product}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h4 class="cart-item-name">${item.product}</h4>
+                <p class="cart-item-size">Size: ${item.size}</p>
+                <p class="cart-item-price">$${item.price}</p>
+            </div>
+            <button class="cart-item-delete" data-id="${item.id}">✕</button>
+        `;
+        
+        cartItemsContainer.appendChild(cartItemDiv);
+    });
+    
+    cartTotal.textContent = `$${total}`;
+    
+    // Add delete functionality
+    document.querySelectorAll('.cart-item-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            const newCartCount = cart.length;
+            cartCountElement.textContent = newCartCount;
+            
+            if (newCartCount === 0) {
+                cartIconContainer.classList.remove("has-items");
+            }
+            
+            renderCart();
+        });
+    });
+}
     </script>
 </body>
 </html>

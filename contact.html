@@ -17,12 +17,7 @@
                     <img src="./images/imualogoo.PNG" width="150" height="150" alt="Imua Track Club Logo">
                 </a>
             </div>
-            <div class="navItem">
-                <div class="search">
-                    <input type="text" placeholder="" class="searchInput">
-                    <img src="./images/iconmonstr-magnifier-5.svg" width="20" height="20" class="searchIcon">
-                </div>
-            </div>
+           
             <div class="navItem">
                 <div class="cart-icon-container">
                     <span class="cartIcon">🛒</span>
@@ -121,14 +116,32 @@
         </div>
     </footer>
 
+    <!-- Cart Side Panel -->
+<div class="cart-panel" id="cartPanel">
+    <div class="cart-panel-content">
+        <div class="cart-header">
+            <h2 class="cart-title">YOUR CART</h2>
+            <span class="cart-close" onclick="document.getElementById('cartPanel').classList.remove('active')">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">TOTAL:</span>
+                <span class="cart-total-amount" id="cartTotal">$0</span>
+            </div>
+            <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
+        </div>
+    </div>
+</div>
+
     <script>
-        // Initialize cart on contact page
-        const cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        // Initialize cart on page
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartCountElement = document.querySelector(".cart-count");
         const cartIconContainer = document.querySelector(".cart-icon-container");
 
-        if (cartCount > 0) {
-            cartCountElement.textContent = cartCount;
+        if (cart.length > 0) {
+            cartCountElement.textContent = cart.length;
             cartIconContainer.classList.add("has-items");
         }
 
@@ -159,6 +172,65 @@
                 successMessage.style.display = 'none';
             }, 3000);
         });
+        // Cart Side Panel functionality
+cartIconContainer.addEventListener("click", () => {
+    document.getElementById('cartPanel').classList.add('active');
+    renderCart();
+});
+
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        cartTotal.textContent = '$0';
+        return;
+    }
+    
+    let total = 0;
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        total += item.price;
+        
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.innerHTML = `
+            <img src="${item.image}" alt="${item.product}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h4 class="cart-item-name">${item.product}</h4>
+                <p class="cart-item-size">Size: ${item.size}</p>
+                <p class="cart-item-price">$${item.price}</p>
+            </div>
+            <button class="cart-item-delete" data-id="${item.id}">✕</button>
+        `;
+        
+        cartItemsContainer.appendChild(cartItemDiv);
+    });
+    
+    cartTotal.textContent = `$${total}`;
+    
+    // Add delete functionality
+    document.querySelectorAll('.cart-item-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            const newCartCount = cart.length;
+            cartCountElement.textContent = newCartCount;
+            
+            if (newCartCount === 0) {
+                cartIconContainer.classList.remove("has-items");
+            }
+            
+            renderCart();
+        });
+    });
+}
     </script>
 </body>
 </html>

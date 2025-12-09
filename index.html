@@ -46,12 +46,7 @@
             <div class="navItem">
                 <img src="./images/imualogoo.PNG" width="150" height="150" alt="Imua Track Club Logo">
             </div>
-            <div class="navItem">
-                <div class="search">
-                    <input type="text" placeholder="" class ="searchInput">
-                    <img src="./images/iconmonstr-magnifier-5.svg" width="20" height="20" class="searchIcon">
-                </div>
-            </div>
+           
             <div class="cart-icon-container">
                 <span class="cartIcon">🛒</span>
                 <span class="cart-count">0</span>
@@ -209,10 +204,27 @@
                 </div>
             </div>
             <div class="footerRightMenu">
-                <span class="copyright">@Imua Athletics. All right reserved. 2025.</span>
+                <span class="copyright">@Imua Athletics. All rights reserved. 2025.</span>
             </div>
         </div>
     </footer>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-content">
+            <div class="cart-header">
+                <h2 class="cart-title">YOUR CART</h2>
+                <span class="cart-close" onclick="document.getElementById('cartPanel').classList.remove('active')">&times;</span>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer">
+                <div class="cart-total-row">
+                    <span class="cart-total-label">TOTAL:</span>
+                    <span class="cart-total-amount" id="cartTotal">$0</span>
+                </div>
+                <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
+            </div>
+        </div>
+    </div>
      
     <script src="app.js"></script>
 </body>
