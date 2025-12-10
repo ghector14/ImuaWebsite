@@ -77,7 +77,6 @@ const products = [
     },
 ];
 
-
 let choosenProduct = products[0];
 let selectedSize = null;
 let selectedColor = null;
@@ -202,7 +201,6 @@ menuItems.forEach((item, index) => {
             }
         });
         
-        // Reset selections
         selectedSize = null;
         selectedColor = choosenProduct.colors[0].img;
     });
@@ -211,16 +209,7 @@ menuItems.forEach((item, index) => {
 const navLogo = document.querySelector(".navTop .navItem img");
 
 navLogo.addEventListener("click", () => {
-    // If already on home page, just scroll to top and show products
-    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-        landingPage.style.display = "none";
-        runnerTransition.style.display = "none";
-        document.body.classList.add("loaded");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        // If on another page, go to home
-        window.location.href = "index.html";
-    }
+    window.location.href = "index.html";
 });
 
 currentProductColors.forEach((color, index) => {
@@ -313,36 +302,7 @@ const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-c
 
 footerProducts.forEach((link, index) => {
     link.addEventListener("click", () => {
-        document.body.classList.add("loaded");
-        
-        productSection.scrollIntoView({ behavior: "smooth" });
-        
-        wrapper.style.transform = `translateX(${-100 * index}vw)`;
-        
-        choosenProduct = products[index];
-        
-        currentProductTitle.textContent = choosenProduct.title;
-        currentProductPrice.textContent = "$" + choosenProduct.price;
-        currentProductImg.src = choosenProduct.colors[0].img;
-        currentProductDescription.textContent = choosenProduct.description;
-
-        currentProductColors.forEach((color, colorIndex) => {
-            if (choosenProduct.colors[colorIndex]) {
-                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-                color.style.display = "block";
-            } else {
-                color.style.display = "none";
-            }
-        });
-        
-        currentProductSizes.forEach((size, sizeIndex) => {
-            if (choosenProduct.sizes[sizeIndex]) {
-                size.textContent = choosenProduct.sizes[sizeIndex];
-                size.style.display = "block";
-            } else {
-                size.style.display = "none";
-            }
-        });
+        window.location.href = `index.html#product-${index}`;
     });
 });
 
@@ -385,7 +345,6 @@ function renderCart() {
     
     cartTotal.textContent = `$${total}`;
     
-    // Add delete functionality
     document.querySelectorAll('.cart-item-delete').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const itemId = parseInt(e.target.getAttribute('data-id'));

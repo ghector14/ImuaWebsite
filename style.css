@@ -38,6 +38,7 @@ body.loaded footer {
     perspective: 1000px;
 }
 
+
 .landingPage.hidden {
     opacity: 0;
     pointer-events: none;
@@ -1490,4 +1491,270 @@ footer {
     color: gray;
     font-size: 20px;
     padding: 40px;
+}
+
+/* Mobile Responsive - Tablets and smaller */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav {
+        padding: 10px 20px;
+    }
+    
+    .navTop {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .navTop .navItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .navTop .navItem img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .cart-icon-container {
+        margin-left: 0;
+    }
+    
+    .limitedOffer {
+        font-size: 16px;
+    }
+    
+    .navBottom {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .menuItem {
+        margin-right: 0;
+        margin: 0 10px;
+        font-size: 14px;
+    }
+    
+    /* Landing Page */
+    .landingLogo {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .enterButton {
+        width: 300px;
+    }
+    
+    /* Slider */
+    .sliderTitle {
+        font-size: 40px;
+        top: 15%;
+    }
+    
+    .sliderPrice {
+        font-size: 40px;
+        top: 15%;
+    }
+    
+    .sliderItem {
+        justify-content: center;
+        padding: 0 20px;
+    }
+    
+    .sliderImg {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    
+    /* Product Section */
+    .product {
+        flex-direction: column;
+        height: auto;
+        padding: 150px 20px 50px;
+    }
+    
+    .productImg {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .productDetails {
+        position: static;
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .productTitle {
+        font-size: 40px;
+    }
+    
+    .productPrice {
+        font-size: 32px;
+    }
+    
+    .productDescription {
+        font-size: 16px;
+    }
+    
+    .product-buttons {
+        flex-direction: column;
+    }
+    
+    .addToCartButton,
+    .productButton {
+        width: 100%;
+    }
+    
+    /* Gallery */
+    .gallery {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+    
+    .galleryItem {
+        padding: 20px 0;
+    }
+    
+    /* Footer */
+    footer {
+        flex-direction: column;
+    }
+    
+    .footerLeft {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+    
+    .footerMenu {
+        margin-bottom: 30px;
+    }
+    
+    .footerRight {
+        padding: 30px 20px;
+    }
+    
+    /* Company/Story Page */
+    .story-page {
+        padding: 150px 20px 50px;
+    }
+    
+    .story-title {
+        font-size: 50px;
+        letter-spacing: 5px;
+    }
+    
+    .story-hero {
+        height: 30vh;
+        margin-bottom: 50px;
+    }
+    
+    .story-content {
+        padding: 0 20px 50px;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .story-text {
+        font-size: 18px;
+    }
+    
+    /* Contact Page */
+    .contact-page {
+        padding: 150px 20px 50px;
+    }
+    
+    .contact-title {
+        font-size: 50px;
+        letter-spacing: 5px;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-heading {
+        font-size: 32px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stories/Athletes Page */
+    .stories-page {
+        padding: 150px 20px 50px;
+    }
+    
+    .stories-title {
+        font-size: 50px;
+        letter-spacing: 5px;
+    }
+    
+    .athletes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Athlete Modal */
+    .modal-content {
+        padding: 30px 20px;
+        width: 95%;
+    }
+    
+    .modal-athlete-name {
+        font-size: 28px;
+    }
+    
+    /* Checkout Page */
+    .checkout-page {
+        padding: 150px 20px 50px;
+    }
+    
+    .checkout-title {
+        font-size: 50px;
+        letter-spacing: 5px;
+    }
+    
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Cart Panel */
+    .cart-panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .cart-panel.active {
+        right: 0;
+    }
+}
+
+/* Mobile - Small phones */
+@media (max-width: 480px) {
+    .story-title,
+    .contact-title,
+    .stories-title,
+    .checkout-title {
+        font-size: 36px;
+        letter-spacing: 3px;
+    }
+    
+    .productTitle {
+        font-size: 32px;
+    }
+    
+    .section-title,
+    .contact-heading {
+        font-size: 24px;
+    }
+    
+    .story-text,
+    .contact-text {
+        font-size: 16px;
+    }
 }
