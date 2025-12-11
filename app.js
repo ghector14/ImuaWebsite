@@ -169,11 +169,19 @@ enterButton.addEventListener("click", () => {
     }, 2500);
 });
 
-menuItems.forEach((item, index) => {
-    item.addEventListener("click", () => {
-        document.body.classList.add("loaded");
-        
-        wrapper.style.transform = `translateX(${-100 * index}vw)`;
+    menuItems.forEach((item, index) => {
+        console.log("Setting up listener for item:", index); // ADD THIS
+        item.addEventListener("click", () => {
+            console.log("CLICKED menu item:", index); // ADD THIS
+            
+            document.body.classList.add("loaded");
+            
+            wrapper.style.transform = `translateX(${-100 * index}vw)`;
+
+         // Scroll to product section
+         setTimeout(() => {
+            productSection.scrollIntoView({ behavior: "smooth" });
+        }, 100);
         
         choosenProduct = products[index];
         

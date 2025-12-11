@@ -152,9 +152,9 @@ body.loaded footer {
 
 
 nav { 
-    background-color: ; 
-    color: ;
     padding: 20px 50px;
+    position: relative;
+    z-index: 1000;
 }
 
 button {
@@ -311,6 +311,8 @@ button {
     color: white;
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 100;
 }
 
 .menuItem {
@@ -318,12 +320,14 @@ button {
     cursor: pointer;
     color: white;
     font-weight: 400;
+    pointer-events: auto;
 }
 
 .slider {
     overflow: hidden;
+    position: relative; /* ADD THIS */
+    z-index: 1; /* ADD THIS - lower than nav */
 }
-
 .sliderWrapper {
     display: flex;
     width: 500vw;
