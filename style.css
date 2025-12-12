@@ -1506,7 +1506,7 @@ footer {
     
     .navTop {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
     }
     
@@ -1523,6 +1523,8 @@ footer {
     
     .cart-icon-container {
         margin-left: 0;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
     
     .limitedOffer {
