@@ -155,6 +155,51 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Handle hash changes on same page (for footer links)
+window.addEventListener("hashchange", () => {
+    const hash = window.location.hash;
+    
+    if (hash.startsWith("#product-")) {
+        const productIndex = parseInt(hash.replace("#product-", ""));
+        
+        document.body.classList.add("loaded");
+        
+        wrapper.style.transform = `translateX(${-100 * productIndex}vw)`;
+        
+        choosenProduct = products[productIndex];
+        
+        currentProductTitle.textContent = choosenProduct.title;
+        currentProductPrice.textContent = "$" + choosenProduct.price;
+        currentProductImg.src = choosenProduct.colors[0].img;
+        currentProductDescription.textContent = choosenProduct.description;
+        selectedColor = choosenProduct.colors[0].img;
+
+        currentProductColors.forEach((color, colorIndex) => {
+            if (choosenProduct.colors[colorIndex]) {
+                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
+                color.style.display = "block";
+            } else {
+                color.style.display = "none";
+            }
+        });
+        
+        currentProductSizes.forEach((size, sizeIndex) => {
+            if (choosenProduct.sizes[sizeIndex]) {
+                size.textContent = choosenProduct.sizes[sizeIndex];
+                size.style.display = "block";
+            } else {
+                size.style.display = "none";
+            }
+        });
+        
+        selectedSize = null;
+        
+        setTimeout(() => {
+            productSection.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+    }
+});
+
 enterButton.addEventListener("click", () => {
     landingPage.classList.add("hidden");
     
@@ -169,19 +214,14 @@ enterButton.addEventListener("click", () => {
     }, 2500);
 });
 
-    menuItems.forEach((item, index) => {
-        console.log("Setting up listener for item:", index); // ADD THIS
-        item.addEventListener("click", () => {
-            console.log("CLICKED menu item:", index); // ADD THIS
-            
-            document.body.classList.add("loaded");
-            
-            wrapper.style.transform = `translateX(${-100 * index}vw)`;
-
-         // Scroll to product section
-         setTimeout(() => {
-            productSection.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+// Top nav menu items
+menuItems.forEach((item, index) => {
+    console.log("Setting up listener for top nav item:", index);
+    item.addEventListener("click", () => {
+        console.log("CLICKED top nav item:", index);
+        
+        document.body.classList.add("loaded");
+        wrapper.style.transform = `translateX(${-100 * index}vw)`;
         
         choosenProduct = products[index];
         
@@ -211,6 +251,16 @@ enterButton.addEventListener("click", () => {
         
         selectedSize = null;
         selectedColor = choosenProduct.colors[0].img;
+    });
+});
+
+// Footer menu items  
+const footerMenuItems = document.querySelectorAll(".footerMenuItem");
+footerMenuItems.forEach((item, index) => {
+    console.log("Setting up listener for footer item:", index);
+    item.addEventListener("click", () => {
+        console.log("CLICKED footer item:", index);
+        window.location.hash = `#product-${index}`;
     });
 });
 
@@ -304,14 +354,6 @@ addToCartButton.addEventListener("click", () => {
     setTimeout(() => {
         cartTrackAnimation.classList.remove("active");
     }, 2000);
-});
-
-const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
-
-footerProducts.forEach((link, index) => {
-    link.addEventListener("click", () => {
-        window.location.href = `index.html#product-${index}`;
-    });
 });
 
 // Cart Side Panel
