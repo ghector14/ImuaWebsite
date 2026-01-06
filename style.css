@@ -454,8 +454,8 @@ button {
 
 .productButton {
     padding: 15px 30px;
-    background-color: white;
-    color: black;
+    background-color: #3e4d3d;
+    color: white;
     border: 2px solid white;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
@@ -463,8 +463,8 @@ button {
 }
 
 .productButton:hover {
-    background-color: transparent;
-    color: white;
+    background-color: rgb(191, 255, 0);
+    color: black;
 }
 
 /* 3D Track Animation around Cart */
@@ -606,6 +606,26 @@ button {
         opacity: 1;
         filter: brightness(1.4);
     }
+}
+
+.buyButton {
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 65%; /* Move closer to title - adjust this value */
+    left: 85%;
+    transform: translateX(-50%);
+}
+
+.buyButton:hover {
+    background-color: white;
+    color: black;
 }
 
 .gallery {
