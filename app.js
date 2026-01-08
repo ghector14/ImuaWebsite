@@ -62,19 +62,7 @@ const products = [
         ],
         sizes: ["XS", "S", "M", "L", "XL", "2XL"],
     },
-    {
-        id: 5, 
-        title: "Pants",
-        price: 30,
-        description: "Black pants to match with everything. Train, warm up, or simply stay warm with our Imua signature pants.",
-        colors: [
-            {
-                code: "black",
-                img: "./images/pants.png",
-            },
-        ],
-        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
-    },
+    
 ];
 
 let choosenProduct = products[0];
