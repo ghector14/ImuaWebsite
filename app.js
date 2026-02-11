@@ -1,194 +1,10 @@
-const wrapper = document.querySelector(".sliderWrapper");
-const menuItems = document.querySelectorAll(".menuItem");
-
-const products = [
-    {
-        id: 1, 
-        title: "IMUA Signature Hat",
-        price: 20,
-        description: "A sleek black essential built for speed and style. Lightweight, comfortable, and bold, made to move with you, on and off the run.",
-        colors: [
-            {
-                code: "black",
-                img: "./images/hat.png",
-            },
-        ],
-        sizes: ["One Size"],
-    },
-    {
-        id: 2, 
-        title: "Beanies",
-        price: 20,
-        description: "Stay warm in style with our cozy IMUA beanie. Perfect for cold weather, training, or casual wear.",
-        colors: [
-            {
-                code: "black",
-                img: "./images/beanie.png",
-            },
-        ],
-        sizes: ["One Size"],
-    },
-    {
-        id: 3, 
-        title: "Shirts",
-        price: 25,
-        description: "This lightweight, breathable tee comes in Black, White and Wine Red. Designed to move with you and keep you locked in from training to those pre race nerves. ",
-        colors: [
-            {
-                code: "black",
-                img: "./images/shirt.png",
-            },
-            {
-                code: "white",
-                img: "./images/whiteshirt.png",
-            },
-            {
-                code: "#8b0000",
-                img: "./images/redshirt.png",
-            },
-        ],
-        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
-    },
-    {
-        id: 4, 
-        title: "Hoodies",
-        price: 35,
-        description: "Streetwear attitude meets runner's edge. Soft, durable, and clean in all the right ways. Wear it warm post run, or all day.",
-        colors: [
-            {
-                code: "black",
-                img: "./images/hoodie.png",
-            },
-        ],
-        sizes: ["XS", "S", "M", "L", "XL", "2XL"],
-    },
-    
-];
-
-let choosenProduct = products[0];
-let selectedSize = null;
-let selectedColor = null;
-
-// Load cart from localStorage
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let cartCount = cart.length;
-   
-const currentProductImg = document.querySelector(".productImg");
-const currentProductTitle = document.querySelector(".productTitle");
-const currentProductPrice = document.querySelector(".productPrice");
-const currentProductColors = document.querySelectorAll(".color");
-const currentProductSizes = document.querySelectorAll(".size");
-const currentProductDescription = document.querySelector(".productDescription");
-const cartCountElement = document.querySelector(".cart-count");
-const cartIconContainer = document.querySelector(".cart-icon-container");
-
-// Initialize cart on page load
-if (cartCount > 0) {
-    cartCountElement.textContent = cartCount;
-    cartIconContainer.classList.add("has-items");
-}
-
 // Landing page and runner transition
 const landingPage = document.querySelector(".landingPage");
 const enterButton = document.querySelector(".enterButton");
 const runnerTransition = document.querySelector(".runnerTransition");
-const productSection = document.querySelector(".product");
 
-// Check if coming from product link
-window.addEventListener("DOMContentLoaded", () => {
-    const hash = window.location.hash;
-    
-    if (hash.startsWith("#product-")) {
-        const productIndex = parseInt(hash.replace("#product-", ""));
-        
-        landingPage.style.display = "none";
-        runnerTransition.style.display = "none";
-        document.body.classList.add("loaded");
-        
-        wrapper.style.transition = "none";
-        wrapper.style.transform = `translateX(${-100 * productIndex}vw)`;
-        
-        setTimeout(() => {
-            wrapper.style.transition = "all .5s ease-in-out";
-        }, 50);
-        
-        choosenProduct = products[productIndex];
-        
-        currentProductTitle.textContent = choosenProduct.title;
-        currentProductPrice.textContent = "$" + choosenProduct.price;
-        currentProductImg.src = choosenProduct.colors[0].img;
-        currentProductDescription.textContent = choosenProduct.description;
-
-        currentProductColors.forEach((color, colorIndex) => {
-            if (choosenProduct.colors[colorIndex]) {
-                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-                color.style.display = "block";
-            } else {
-                color.style.display = "none";
-            }
-        });
-        
-        currentProductSizes.forEach((size, sizeIndex) => {
-            if (choosenProduct.sizes[sizeIndex]) {
-                size.textContent = choosenProduct.sizes[sizeIndex];
-                size.style.display = "block";
-            } else {
-                size.style.display = "none";
-            }
-        });
-        
-        setTimeout(() => {
-            productSection.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-    }
-});
-
-// Handle hash changes on same page (for footer links)
-window.addEventListener("hashchange", () => {
-    const hash = window.location.hash;
-    
-    if (hash.startsWith("#product-")) {
-        const productIndex = parseInt(hash.replace("#product-", ""));
-        
-        document.body.classList.add("loaded");
-        
-        wrapper.style.transform = `translateX(${-100 * productIndex}vw)`;
-        
-        choosenProduct = products[productIndex];
-        
-        currentProductTitle.textContent = choosenProduct.title;
-        currentProductPrice.textContent = "$" + choosenProduct.price;
-        currentProductImg.src = choosenProduct.colors[0].img;
-        currentProductDescription.textContent = choosenProduct.description;
-        selectedColor = choosenProduct.colors[0].img;
-
-        currentProductColors.forEach((color, colorIndex) => {
-            if (choosenProduct.colors[colorIndex]) {
-                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-                color.style.display = "block";
-            } else {
-                color.style.display = "none";
-            }
-        });
-        
-        currentProductSizes.forEach((size, sizeIndex) => {
-            if (choosenProduct.sizes[sizeIndex]) {
-                size.textContent = choosenProduct.sizes[sizeIndex];
-                size.style.display = "block";
-            } else {
-                size.style.display = "none";
-            }
-        });
-        
-        selectedSize = null;
-        
-        setTimeout(() => {
-            productSection.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-    }
-});
-
-enterButton.addEventListener("click", () => {
+// Make entire landing page clickable
+landingPage.addEventListener("click", () => {
     landingPage.classList.add("hidden");
     
     setTimeout(() => {
@@ -202,200 +18,306 @@ enterButton.addEventListener("click", () => {
     }, 2500);
 });
 
-// Top nav menu items
-menuItems.forEach((item, index) => {
-    console.log("Setting up listener for top nav item:", index);
-    item.addEventListener("click", () => {
-        console.log("CLICKED top nav item:", index);
-        
-        document.body.classList.add("loaded");
-        wrapper.style.transform = `translateX(${-100 * index}vw)`;
-        
-        choosenProduct = products[index];
-        
-        currentProductTitle.textContent = choosenProduct.title;
-        currentProductPrice.textContent = "$" + choosenProduct.price;
-        currentProductImg.src = choosenProduct.colors[0].img;
-        currentProductDescription.textContent = choosenProduct.description;
-        selectedColor = choosenProduct.colors[0].img;
+// ============================================
+// 3D GLOBE INTERACTION
+// ============================================
+import * as THREE from "https://cdn.skypack.dev/three@0.133.1/build/three.module";
+import {OrbitControls} from "https://cdn.skypack.dev/three@0.133.1/examples/jsm/controls/OrbitControls";
 
-        currentProductColors.forEach((color, colorIndex) => {
-            if (choosenProduct.colors[colorIndex]) {
-                color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-                color.style.display = "block";
-            } else {
-                color.style.display = "none";
-            }
-        });
-        
-        currentProductSizes.forEach((size, sizeIndex) => {
-            if (choosenProduct.sizes[sizeIndex]) {
-                size.textContent = choosenProduct.sizes[sizeIndex];
-                size.style.display = "block";
-            } else {
-                size.style.display = "none";
-            }
-        });
-        
-        selectedSize = null;
-        selectedColor = choosenProduct.colors[0].img;
-    });
-});
+const containerEl = document.querySelector(".globe-wrapper");
+if (containerEl) {
+    const canvas3D = containerEl.querySelector("#globe-3d");
+    const canvas2D = containerEl.querySelector("#globe-2d-overlay");
+    const popupEl = containerEl.querySelector(".globe-popup");
 
-// Footer menu items  
-const footerMenuItems = document.querySelectorAll(".footerMenuItem");
-footerMenuItems.forEach((item, index) => {
-    console.log("Setting up listener for footer item:", index);
-    item.addEventListener("click", () => {
-        console.log("CLICKED footer item:", index);
-        window.location.hash = `#product-${index}`;
-    });
-});
+    let renderer, scene, camera, rayCaster, controls;
+    let overlayCtx = canvas2D.getContext("2d");
+    let coordinates2D = [0, 0];
+    let pointerPos;
+    let clock, mouse, pointer, globe, globeMesh;
+    let popupVisible;
+    let earthTexture, mapMaterial;
+    let popupOpenTl, popupCloseTl;
 
-const navLogo = document.querySelector(".navTop .navItem img");
+    let dragged = false;
 
-navLogo.addEventListener("click", () => {
-    window.location.href = "index.html";
-});
+    initScene();
+    window.addEventListener("resize", updateSize);
 
-currentProductColors.forEach((color, index) => {
-    color.addEventListener("click", () => {
-        if (choosenProduct.colors[index]) {
-            currentProductImg.src = choosenProduct.colors[index].img;
-            selectedColor = choosenProduct.colors[index].img;
-        }
-    });
-});
+    function initScene() {
+        renderer = new THREE.WebGLRenderer({canvas: canvas3D, alpha: true});
+        renderer.setPixelRatio(2);
+        renderer.setClearColor(0x1a0a0f, 0);
 
-currentProductColors.forEach((color, colorIndex) => {
-    if (choosenProduct.colors[colorIndex]) {
-        color.style.backgroundColor = choosenProduct.colors[colorIndex].code;
-        color.style.display = "block";
-    } else {
-        color.style.display = "none";
-    }
-});
+        scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0x2d0f1a, 1, 3);
+        camera = new THREE.OrthographicCamera(-1.1, 1.1, 1.1, -1.1, 0, 3);
+        camera.position.z = 1.1;
 
-currentProductSizes.forEach((size, sizeIndex) => {
-    if (choosenProduct.sizes[sizeIndex]) {
-        size.textContent = choosenProduct.sizes[sizeIndex];
-        size.style.display = "block";
-    } else {
-        size.style.display = "none";
-    }
-});
+        rayCaster = new THREE.Raycaster();
+        rayCaster.far = 1.15;
+        mouse = new THREE.Vector2(-1, -1);
+        clock = new THREE.Clock();
 
-const buyButtons = document.querySelectorAll(".buyButton");
+        createOrbitControls();
 
-buyButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        productSection.scrollIntoView({ behavior: "smooth" });
-    });
-});
+        popupVisible = false;
 
-currentProductSizes.forEach((size) => {
-    size.addEventListener("click", () => {
-        if (size.style.backgroundColor === "white") {
-            size.style.backgroundColor = "black";
-            size.style.color = "white";
-            selectedSize = null;
-        } else {
-            currentProductSizes.forEach((s) => {
-                s.style.backgroundColor = "black";
-                s.style.color = "white";
+        new THREE.TextureLoader().load(
+            "https://ksenia-k.com/img/earth-map-colored.png",
+            (mapTex) => {
+                earthTexture = mapTex;
+                earthTexture.repeat.set(1, 1);
+                createGlobe();
+                createPointer();
+                createPopupTimelines();
+                addCanvasEvents();
+                updateSize();
+                render();
             });
-            size.style.backgroundColor = "white";
-            size.style.color = "black";
-            selectedSize = size.textContent;
-        }
-    });
-});
-
-const addToCartButton = document.querySelector(".addToCartButton");
-const cartTrackAnimation = document.querySelector(".cart-track-animation");
-
-addToCartButton.addEventListener("click", () => {
-    if (!selectedSize) {
-        alert("Please select a size!");
-        return;
     }
-    
-    const cartItem = {
-        id: Date.now(),
-        product: choosenProduct.title,
-        price: choosenProduct.price,
-        size: selectedSize,
-        color: selectedColor,
-        image: currentProductImg.src
-    };
-    
-    cart.push(cartItem);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    cartCount = cart.length;
-    cartCountElement.textContent = cartCount;
-    
-    cartIconContainer.classList.add("has-items");
-    
-    cartTrackAnimation.classList.add("active");
-    
-    setTimeout(() => {
-        cartTrackAnimation.classList.remove("active");
-    }, 2000);
-});
 
-// Cart Side Panel
-cartIconContainer.addEventListener("click", () => {
-    document.getElementById('cartPanel').classList.add('active');
-    renderCart();
-});
+    function createOrbitControls() {
+        controls = new OrbitControls(camera, canvas3D);
+        controls.enablePan = false;
+        controls.enableZoom = false;
+        controls.enableDamping = true;
+        controls.minPolarAngle = .4 * Math.PI;
+        controls.maxPolarAngle = .4 * Math.PI;
+        controls.autoRotate = true;
 
-function renderCart() {
-    const cartItemsContainer = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
-        cartTotal.textContent = '$0';
-        return;
-    }
-    
-    let total = 0;
-    cartItemsContainer.innerHTML = '';
-    
-    cart.forEach(item => {
-        total += item.price;
-        
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.className = 'cart-item';
-        cartItemDiv.innerHTML = `
-            <img src="${item.image}" alt="${item.product}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h4 class="cart-item-name">${item.product}</h4>
-                <p class="cart-item-size">Size: ${item.size}</p>
-                <p class="cart-item-price">$${item.price}</p>
-            </div>
-            <button class="cart-item-delete" data-id="${item.id}">✕</button>
-        `;
-        
-        cartItemsContainer.appendChild(cartItemDiv);
-    });
-    
-    cartTotal.textContent = `$${total}`;
-    
-    document.querySelectorAll('.cart-item-delete').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const itemId = parseInt(e.target.getAttribute('data-id'));
-            cart = cart.filter(item => item.id !== itemId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            cartCount = cart.length;
-            cartCountElement.textContent = cartCount;
-            
-            if (cartCount === 0) {
-                cartIconContainer.classList.remove("has-items");
-            }
-            
-            renderCart();
+        let timestamp;
+        controls.addEventListener("start", () => {
+            timestamp = Date.now();
         });
-    });
+        controls.addEventListener("end", () => {
+            dragged = (Date.now() - timestamp) > 600;
+        });
+    }
+
+    function createGlobe() {
+        const globeGeometry = new THREE.IcosahedronGeometry(1, 22);
+        mapMaterial = new THREE.ShaderMaterial({
+            vertexShader: document.getElementById("vertex-shader-map").textContent,
+            fragmentShader: document.getElementById("fragment-shader-map").textContent,
+            uniforms: {
+                u_map_tex: {type: "t", value: earthTexture},
+                u_dot_size: {type: "f", value: 0},
+                u_pointer: {type: "v3", value: new THREE.Vector3(.0, .0, 1.)},
+                u_time_since_click: {value: 0},
+            },
+            alphaTest: false,
+            transparent: true
+        });
+
+        globe = new THREE.Points(globeGeometry, mapMaterial);
+        scene.add(globe);
+
+        globeMesh = new THREE.Mesh(globeGeometry, new THREE.MeshBasicMaterial({
+            color: 0x8B002A,
+            transparent: true,
+            opacity: .15
+        }));
+        scene.add(globeMesh);
+    }
+
+    function createPointer() {
+        const geometry = new THREE.SphereGeometry(.04, 16, 16);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xFF7291,
+            transparent: true,
+            opacity: 0
+        });
+        pointer = new THREE.Mesh(geometry, material);
+        scene.add(pointer);
+    }
+
+    function updateOverlayGraphic() {
+        let activePointPosition = pointer.position.clone();
+        activePointPosition.applyMatrix4(globe.matrixWorld);
+        const activePointPositionProjected = activePointPosition.clone();
+        activePointPositionProjected.project(camera);
+        coordinates2D[0] = (activePointPositionProjected.x + 1) * containerEl.offsetWidth * .5;
+        coordinates2D[1] = (1 - activePointPositionProjected.y) * containerEl.offsetHeight * .5;
+
+        const matrixWorldInverse = controls.object.matrixWorldInverse;
+        activePointPosition.applyMatrix4(matrixWorldInverse);
+
+        if (activePointPosition.z > -1) {
+            if (popupVisible === false) {
+                popupVisible = true;
+                showPopupAnimation(false);
+            }
+
+            let popupX = coordinates2D[0];
+            popupX -= (activePointPositionProjected.x * containerEl.offsetWidth * .3);
+
+            let popupY = coordinates2D[1];
+            const upDown = (activePointPositionProjected.y > .6);
+            popupY += (upDown ? 20 : -20);
+
+            gsap.set(popupEl, {
+                x: popupX,
+                y: popupY,
+                xPercent: -35,
+                yPercent: upDown ? 0 : -100
+            });
+
+            popupY += (upDown ? -5 : 5);
+            const curveMidX = popupX + activePointPositionProjected.x * 100;
+            const curveMidY = popupY + (upDown ? -.5 : .1) * coordinates2D[1];
+
+            drawPopupConnector(coordinates2D[0], coordinates2D[1], curveMidX, curveMidY, popupX, popupY);
+
+        } else {
+            if (popupVisible) {
+                popupOpenTl.pause(0);
+                popupCloseTl.play(0);
+            }
+            popupVisible = false;
+        }
+    }
+
+    function addCanvasEvents() {
+        containerEl.addEventListener("mousemove", (e) => {
+            updateMousePosition(e.clientX, e.clientY);
+        });
+
+        containerEl.addEventListener("click", (e) => {
+            if (!dragged) {
+                updateMousePosition(
+                    e.targetTouches ? e.targetTouches[0].pageX : e.clientX,
+                    e.targetTouches ? e.targetTouches[0].pageY : e.clientY,
+                );
+
+                const res = checkIntersects();
+                if (res.length) {
+                    pointerPos = res[0].face.normal.clone();
+                    pointer.position.set(res[0].face.normal.x, res[0].face.normal.y, res[0].face.normal.z);
+                    mapMaterial.uniforms.u_pointer.value = res[0].face.normal;
+                    popupEl.innerHTML = cartesianToLatLong();
+                    showPopupAnimation(true);
+                    clock.start()
+                }
+            }
+        });
+
+        function updateMousePosition(eX, eY) {
+            mouse.x = (eX - containerEl.offsetLeft) / containerEl.offsetWidth * 2 - 1;
+            mouse.y = -((eY - containerEl.offsetTop) / containerEl.offsetHeight) * 2 + 1;
+        }
+    }
+
+    function checkIntersects() {
+        rayCaster.setFromCamera(mouse, camera);
+        const intersects = rayCaster.intersectObject(globeMesh);
+        if (intersects.length) {
+            document.body.style.cursor = "pointer";
+        } else {
+            document.body.style.cursor = "auto";
+        }
+        return intersects;
+    }
+
+    function render() {
+        mapMaterial.uniforms.u_time_since_click.value = clock.getElapsedTime();
+        checkIntersects();
+        if (pointer) {
+            updateOverlayGraphic();
+        }
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+    }
+
+    function updateSize() {
+        const containerWidth = containerEl.offsetWidth;
+        const containerHeight = containerEl.offsetHeight;
+        renderer.setSize(containerWidth, containerHeight);
+        canvas2D.width = containerWidth;
+        canvas2D.height = containerHeight;
+        mapMaterial.uniforms.u_dot_size.value = .04 * Math.min(containerWidth, containerHeight);
+    }
+
+    function cartesianToLatLong() {
+        const pos = pointer.position;
+        const lat = 90 - Math.acos(pos.y) * 180 / Math.PI;
+        const lng = (270 + Math.atan2(pos.x, pos.z) * 180 / Math.PI) % 360 - 180;
+        return formatCoordinate(lat, 'N', 'S') + ",&nbsp;" + formatCoordinate(lng, 'E', 'W');
+    }
+
+    function formatCoordinate(coordinate, positiveDirection, negativeDirection) {
+        const direction = coordinate >= 0 ? positiveDirection : negativeDirection;
+        return `${Math.abs(coordinate).toFixed(4)}°&nbsp${direction}`;
+    }
+
+    function createPopupTimelines() {
+        popupOpenTl = gsap.timeline({
+            paused: true
+        })
+            .to(pointer.material, {
+                duration: .2,
+                opacity: 1,
+            }, 0)
+            .fromTo(canvas2D, {
+                opacity: 0
+            }, {
+                duration: .3,
+                opacity: 1
+            }, .15)
+            .fromTo(popupEl, {
+                opacity: 0,
+                scale: .9,
+                transformOrigin: "center bottom"
+            }, {
+                duration: .1,
+                opacity: 1,
+                scale: 1,
+            }, .15 + .1);
+
+        popupCloseTl = gsap.timeline({
+            paused: true
+        })
+            .to(pointer.material, {
+                duration: .3,
+                opacity: .2,
+            }, 0)
+            .to(canvas2D, {
+                duration: .3,
+                opacity: 0
+            }, 0)
+            .to(popupEl, {
+                duration: 0.3,
+                opacity: 0,
+                scale: 0.9,
+                transformOrigin: "center bottom"
+            }, 0);
+    }
+
+    function showPopupAnimation(lifted) {
+        if (lifted) {
+            let positionLifted = pointer.position.clone();
+            positionLifted.multiplyScalar(1.3);
+            gsap.from(pointer.position, {
+                duration: .25,
+                x: positionLifted.x,
+                y: positionLifted.y,
+                z: positionLifted.z,
+                ease: "power3.out"
+            });
+        }
+        popupCloseTl.pause(0);
+        popupOpenTl.play(0);
+    }
+
+    function drawPopupConnector(startX, startY, midX, midY, endX, endY) {
+        overlayCtx.strokeStyle = "#ffffff";
+        overlayCtx.lineWidth = 2;
+        overlayCtx.lineCap = "round";
+        overlayCtx.clearRect(0, 0, containerEl.offsetWidth, containerEl.offsetHeight);
+        overlayCtx.beginPath();
+        overlayCtx.moveTo(startX, startY);
+        overlayCtx.quadraticCurveTo(midX, midY, endX, endY);
+        overlayCtx.stroke();
+    }
 }

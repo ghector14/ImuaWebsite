@@ -7,6 +7,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>Imua Track Club</title>
+    <style>
+        /* Hide shader scripts from displaying */
+        script[type="x-shader/x-vertex"],
+        script[type="x-shader/x-fragment"] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <div class="landingPage">
@@ -25,112 +32,50 @@
         <div class="track-line"></div>
     </div>
 
-    <div class="cart-track-animation">
-        <div class="cart-track-content">
-            <div class="cart-track-icon">🛒</div>
-            <div class="cart-track-container">
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-                <div class="cart-track-lane"></div>
-            </div>
-        </div>
-    </div>
+    <!-- Animated Blob Section -->
+    <section class="blob-section">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="blob-svg">
+            <image href="./images/spikes.jpg"
+                 width="200" height="200"
+                 preserveAspectRatio="xMidYMid slice"
+                 clip-path="url(#blobClip)"/>
+            <clipPath id="blobClip">
+              <path d="M43.1,-68.5C56.2,-58.6,67.5,-47.3,72.3,-33.9C77.2,-20.5,75.5,-4.9,74.2,11.3C72.9,27.6,71.9,44.5,63.8,57.2C55.7,69.8,40.6,78.2,25.5,79.2C10.4,80.1,-4.7,73.6,-20.9,69.6C-37.1,65.5,-54.5,63.9,-66,54.8C-77.5,45.8,-83.2,29.3,-85.7,12.3C-88.3,-4.8,-87.7,-22.3,-79.6,-34.8C-71.5,-47.3,-55.8,-54.9,-41.3,-64.2C-26.7,-73.6,-13.4,-84.7,0.8,-86C15,-87.2,29.9,-78.5,43.1,-68.5Z"
+                    transform="translate(100 100)"/>
+            </clipPath>
+          <path
+            id="text"    
+            d="M43.1,-68.5C56.2,-58.6,67.5,-47.3,72.3,-33.9C77.2,-20.5,75.5,-4.9,74.2,11.3C72.9,27.6,71.9,44.5,63.8,57.2C55.7,69.8,40.6,78.2,25.5,79.2C10.4,80.1,-4.7,73.6,-20.9,69.6C-37.1,65.5,-54.5,63.9,-66,54.8C-77.5,45.8,-83.2,29.3,-85.7,12.3C-88.3,-4.8,-87.7,-22.3,-79.6,-34.8C-71.5,-47.3,-55.8,-54.9,-41.3,-64.2C-26.7,-73.6,-13.4,-84.7,0.8,-86C15,-87.2,29.9,-78.5,43.1,-68.5Z"
+            transform="translate(100 100)"
+            fill="none" stroke="none"
+            pathLength="100"
+          />
+          <text class="text-content">
+            <textPath href="#text" startOffset="0%">IMUA ATHLETICS 3
+              <animate attributeName="startOffset" from="0%" to="100%" dur="15s" repeatCount="indefinite" />
+            </textPath>
+            <textPath href="#text" startOffset="100%">IMUA ATHLETICS 3
+              <animate attributeName="startOffset" from="-100%" to="0%" dur="15s" repeatCount="indefinite" />
+            </textPath>
+          </text>
+        </svg>
+    </section>
 
-    <nav>
-        <div class="navTop">
-            <div class="navItem">
-                <img src="./images/imualogoo.PNG" width="150" height="150" alt="Imua Track Club Logo">
-            </div>
-           
-            <div class="cart-icon-container">
-                <span class="cartIcon">🛒</span>
-                <span class="cart-count">0</span>
-                <div class="mini-track-container">
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                    <div class="mini-track-lane"></div>
-                </div>
+    <!-- 3D Globe Section -->
+    <section class="globe-section">
+        <div class="globe-wrapper">
+            <canvas id="globe-3d"></canvas>
+            <canvas id="globe-2d-overlay"></canvas>
+            <div id="globe-popup-overlay">
+                <div class="globe-popup"></div>
             </div>
         </div>
-        <div class="navBottom">
-            <h3 class="menuItem">Hats</h3>
-            <h3 class="menuItem">Beanies</h3>
-            <h3 class="menuItem">Shirts</h3>
-            <h3 class="menuItem">Hoodies</h3>
+        <div>
+            <h1 class="globe-title">Global Reach, Local Impact.</h1>
+            <p class="globe-description">From the heart of our community to the world stage, Imua Athletics is dedicated to empowering athletes. Join us as we break barriers and redefine what's possible.</p>
         </div>
-    </nav>
-    <div class="slider">
-
-        <div class="sliderWrapper">
-            <div class="sliderItem">
-                <img src="./images/hat.png" class="sliderImg">
-                <div class="slideBg"></div>
-                <h1 class="sliderTitle">Hats</h1>
-                <h2 class="sliderPrice">$20</h2>
-                <button class="buyButton">Shop Now</button>
-            </div>
-            <div class="sliderItem">
-                <img src="./images/beanie.png" class="sliderImg">
-                <div class="slideBg"></div>
-                <h1 class="sliderTitle">Beanies</h1>
-                <h2 class="sliderPrice">$20</h2>
-                <button class="buyButton">Shop Now</button>
-            </div>
-            <div class="sliderItem">
-                <img src="./images/shirt.png" class="sliderImg">
-                <div class="slideBg"></div>
-                <h1 class="sliderTitle">Shirts</h1>
-                <h2 class="sliderPrice">$25</h2>
-                <button class="buyButton">Shop Now</button>
-            </div>
-            <div class="sliderItem">
-                <img src="./images/hoodie.png" class="sliderImg">
-                <div class="slideBg"></div>
-                <h1 class="sliderTitle">Hoodies</h1>
-                <h2 class="sliderPrice">$35</h2>
-                <button class="buyButton">Shop Now</button>
-            </div>
-        </div>
-    </div>
-    <div class="product">
-        <img src="./images/hat.png" class="productImg">
-        <div class="productDetails">
-            <h1 class="productTitle">IMUA Signature Hat</h1>
-            <h2 class="productPrice">$20</h2>
-            <p class="productDescription">Elevate your everyday look with our IMUA Signature 
-                Hat — a clean, modern essential built for comfort and style. Featuring our bold 
-                IMUA logo, this hat is designed for training, traveling, or living on the go. Durable materials, adjustable back, and 
-                a timeless silhouette</p>
-            <div class="colors">
-                <div class="color"></div>
-                <div class="color"></div>
-                <div class="color"></div>
-            </div>
-            <div class="sizes">
-                <div class="size">One Size</div>
-                <div class="size">XS</div>
-                <div class="size">S</div>
-                <div class="size">M</div>
-                <div class="size">L</div>
-                <div class="size">XL</div>
-                <div class="size">2XL</div>
-            </div>
-            <div class="product-buttons">
-                <button class="addToCartButton">Add to Cart</button>
-                <button class="productButton">Buy Now</button>
-            </div>
-        </div>
-    </div>
+    </section>
+    <!------------------------>
     <div class="gallery">
         <div class="galleryItem">
             <h1 class="galleryTittle">You VS You.</h1>
@@ -161,12 +106,9 @@
                 </ul>
             </div>
             <div class="footerMenu">
-                <h1 class="fMenuTittle">Products</h1>
+                <h1 class="fMenuTittle">Shop</h1>
                 <ul class="fList">
-                    <li class="fListItem footerMenuItem">Hats</li>
-                    <li class="fListItem footerMenuItem">Beanies</li>
-                    <li class="fListItem footerMenuItem">Shirts</li>
-                    <li class="fListItem footerMenuItem">Hoodies</li>
+                    <li class="fListItem"><a href="shop.html" style="color: gray; text-decoration: none;">Products</a></li>
                 </ul>
             </div>
         </div>
@@ -198,23 +140,49 @@
         </div>
     </footer>
 
-    <div class="cart-panel" id="cartPanel">
-        <div class="cart-panel-content">
-            <div class="cart-header">
-                <h2 class="cart-title">YOUR CART</h2>
-                <span class="cart-close" onclick="document.getElementById('cartPanel').classList.remove('active')">&times;</span>
-            </div>
-            <div class="cart-items" id="cartItems"></div>
-            <div class="cart-footer">
-                <div class="cart-total-row">
-                    <span class="cart-total-label">TOTAL:</span>
-                    <span class="cart-total-amount" id="cartTotal">$0</span>
-                </div>
-                <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
-            </div>
-        </div>
-    </div>
-     
-    <script src="app.js"></script>
+    <!-- Shaders for Globe -->
+    <script id="vertex-shader-map" type="x-shader/x-vertex">
+        uniform sampler2D u_map_tex;
+        uniform float u_dot_size;
+        uniform vec3 u_pointer;
+        uniform float u_time_since_click;
+
+        varying vec3 v_color;
+
+        void main() {
+            vec4 map_color = texture2D(u_map_tex, uv);
+            
+            float is_land = map_color.r > .1 ? 1. : 0.;
+            
+            vec3 animated_position = position;
+            
+            float dist = length(position - u_pointer);
+            float t = clamp(u_time_since_click * 1.5, 0., 1.);
+            float t_easein = 1. - (1. - t) * (1. - t) * (1. - t);
+            float t_easeout = t * t * t;
+            
+            float amp = is_land > .5 ? .15 : .02;
+            float animated_dist = dist - t_easeout * .5;
+            animated_position += .2 * amp * (1. - is_land) * sin(20. * animated_dist) * (1. / (10. * animated_dist + 1.)) * t_easein * normal;
+            
+            gl_PointSize = (is_land > .5 ? u_dot_size * 1.2 : u_dot_size * .75) * (1. - dist * .5);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(animated_position, 1.0);
+            
+            v_color = mix(vec3(.071, .027, .043), vec3(.549, .169, .224), is_land);
+        }
+    </script>
+
+    <script id="fragment-shader-map" type="x-shader/x-fragment">
+        varying vec3 v_color;
+
+        void main() {
+            float dist_to_center = length(gl_PointCoord - vec2(.5));
+            float alpha = smoothstep(.5, .48, dist_to_center);
+            gl_FragColor = vec4(v_color, alpha);
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
