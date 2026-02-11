@@ -97,6 +97,28 @@ if (containerEl) {
 
     function createGlobe() {
         const globeGeometry = new THREE.IcosahedronGeometry(1, 22);
+        
+        // If texture failed, use a simple colored material
+        if (!earthTexture) {
+            console.log('No texture available, using fallback colored globe');
+            const simpleMaterial = new THREE.MeshBasicMaterial({
+                color: 0x8B002A,
+                wireframe: false,
+                transparent: true,
+                opacity: 0.8
+            });
+            globe = new THREE.Mesh(globeGeometry, simpleMaterial);
+            scene.add(globe);
+            
+            globeMesh = new THREE.Mesh(globeGeometry, new THREE.MeshBasicMaterial({
+                color: 0x8B002A,
+                transparent: true,
+                opacity: .15
+            }));
+            scene.add(globeMesh);
+            return;
+        }
+        
         mapMaterial = new THREE.ShaderMaterial({
             vertexShader: document.getElementById("vertex-shader-map").textContent,
             fragmentShader: document.getElementById("fragment-shader-map").textContent,
@@ -220,7 +242,9 @@ if (containerEl) {
     }
 
     function render() {
-        mapMaterial.uniforms.u_time_since_click.value = clock.getElapsedTime();
+        if (mapMaterial) {
+            mapMaterial.uniforms.u_time_since_click.value = clock.getElapsedTime();
+        }
         checkIntersects();
         if (pointer) {
             updateOverlayGraphic();

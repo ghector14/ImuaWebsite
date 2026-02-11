@@ -19,24 +19,8 @@
             </div>
             <div class="navItem">
                 <div class="search">
-                    <input type="text" placeholder="" class="searchInput">
+                    <input type="text" placeholder="Search athletes..." class="searchInput">
                     <img src="./images/iconmonstr-magnifier-5.svg" width="20" height="20" class="searchIcon">
-                </div>
-            </div>
-            <div class="navItem">
-                <div class="cart-icon-container">
-                    <span class="cartIcon">🛒</span>
-                    <span class="cart-count">0</span>
-                    <div class="mini-track-container">
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                        <div class="mini-track-lane"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -117,13 +101,9 @@
                 </ul>
             </div>
             <div class="footerMenu">
-                <h1 class="fMenuTittle">Products</h1>
+                <h1 class="fMenuTittle">Shop</h1>
                 <ul class="fList">
-                    <li class="fListItem">Hats</li>
-                    <li class="fListItem">Beanies</li>
-                    <li class="fListItem">Shirts</li>
-                    <li class="fListItem">Hoodies</li>
-                    <li class="fListItem">Pants</li>
+                    <li class="fListItem"><a href="shop.html" style="color: gray; text-decoration: none;">Products</a></li>
                 </ul>
             </div>
         </div>
@@ -155,44 +135,7 @@
         </div>
     </footer>
 
-    <!-- Cart Side Panel -->
-<div class="cart-panel" id="cartPanel">
-    <div class="cart-panel-content">
-        <div class="cart-header">
-            <h2 class="cart-title">YOUR CART</h2>
-            <span class="cart-close" onclick="document.getElementById('cartPanel').classList.remove('active')">&times;</span>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-footer">
-            <div class="cart-total-row">
-                <span class="cart-total-label">TOTAL:</span>
-                <span class="cart-total-amount" id="cartTotal">$0</span>
-            </div>
-            <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
-        </div>
-    </div>
-</div>
-
     <script>
-       // Initialize cart on page
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartCountElement = document.querySelector(".cart-count");
-        const cartIconContainer = document.querySelector(".cart-icon-container");
-
-        if (cart.length > 0) {
-            cartCountElement.textContent = cart.length;
-            cartIconContainer.classList.add("has-items");
-        }
-
-        // Footer product links
-        const footerProducts = document.querySelectorAll(".footerLeft .footerMenu:last-child .fList .fListItem");
-        
-        footerProducts.forEach((link, index) => {
-            link.addEventListener("click", () => {
-                window.location.href = `index.html#product-${index}`;
-            });
-        });
-
         // Athlete data
         const athletes = [
             {
@@ -217,7 +160,7 @@
                 bio: "Avid outddors man growing up in Oregon, Colby has always loved to run and push himself, qualifying for the Boston Marathon Colby is ready to tackle anything that comes his way.",
                 why: "I run because it's pure. Just me, the clock, and the finish line. No one else can do it for me.",
                 imua: "IMUA is that voice in my head at the starting line reminding me I've already won the battle against doubt.",
-                instagram: "@jthompson_speed",
+                instagram: "@colby.lundstrom",
             },
             {
                 name: "Jesse Todd",
@@ -305,65 +248,6 @@ searchInput.addEventListener('input', (e) => {
                 modal.classList.remove('active');
             }
         });
-        // Cart Side Panel functionality
-cartIconContainer.addEventListener("click", () => {
-    document.getElementById('cartPanel').classList.add('active');
-    renderCart();
-});
-
-function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartItemsContainer = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
-        cartTotal.textContent = '$0';
-        return;
-    }
-    
-    let total = 0;
-    cartItemsContainer.innerHTML = '';
-    
-    cart.forEach(item => {
-        total += item.price;
-        
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.className = 'cart-item';
-        cartItemDiv.innerHTML = `
-            <img src="${item.image}" alt="${item.product}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h4 class="cart-item-name">${item.product}</h4>
-                <p class="cart-item-size">Size: ${item.size}</p>
-                <p class="cart-item-price">$${item.price}</p>
-            </div>
-            <button class="cart-item-delete" data-id="${item.id}">✕</button>
-        `;
-        
-        cartItemsContainer.appendChild(cartItemDiv);
-    });
-    
-    cartTotal.textContent = `$${total}`;
-    
-    // Add delete functionality
-    document.querySelectorAll('.cart-item-delete').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const itemId = parseInt(e.target.getAttribute('data-id'));
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart = cart.filter(item => item.id !== itemId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            const newCartCount = cart.length;
-            cartCountElement.textContent = newCartCount;
-            
-            if (newCartCount === 0) {
-                cartIconContainer.classList.remove("has-items");
-            }
-            
-            renderCart();
-        });
-    });
-}
     </script>
 </body>
 </html>
