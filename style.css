@@ -13,6 +13,22 @@ body {
     margin: 0;
 }
 
+#scroll {
+    color: #f3edee;
+    font-family: 'Inter', sans-serif;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: larger;
+    position: absolute;
+}
+
+#soon {
+    color: #f3edee;
+    text-align: center;
+    margin-bottom: 700px;
+}
+
 /* Hide main content initially */
 .blob-section, .globe-section, .gallery, footer {
     opacity: 0;
@@ -54,7 +70,7 @@ body.loaded footer {
 .landingLogo {
     width: 500px;
     height: 500px;
-    animation: rotate3d 5s linear infinite;
+    animation: rotate3d 7s linear infinite;
     margin-bottom: 40px;
 }
 
@@ -332,7 +348,12 @@ footer {
 
 .fButton {
     padding: 5px;
+    background-color: rgb(53, 103, 52);
+    color: #f3edee;
+    border: none;
+    cursor: pointer;
 }
+
 
 .fIcons {
     display: flex;
@@ -792,7 +813,7 @@ nav {
     min-height: 100vh;
     background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
     color: white;
-    padding: 120px 40px 100px 40px;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -801,7 +822,7 @@ nav {
 .story-content {
     max-width: 1000px;
     width: 100%;
-    padding-top: 50px;
+    padding: 0;
 }
 
 .story-section {
@@ -864,7 +885,7 @@ nav {
     min-height: 100vh;
     background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
     color: white;
-    padding: 120px 40px 100px 40px;
+    padding: 0 40px 100px 40px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -1005,7 +1026,7 @@ nav {
     min-height: 100vh;
     background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
     color: white;
-    padding: 120px 40px 100px 40px;
+    padding: 0px 40px 100px 40px;
 }
 
 .stories-title {
@@ -1013,16 +1034,16 @@ nav {
     font-weight: 900;
     color: #fff;
     text-align: center;
-    margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 6px;
+    margin: 0;
 }
 
 .stories-subtitle {
     font-size: 17px;
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 60px;
+    margin-bottom: 25px;
     font-weight: 300;
     letter-spacing: 1px;
 }
@@ -1174,9 +1195,10 @@ nav {
     border: 1px solid rgba(139, 0, 42, 0.3);
 }
 
-.placeholder-image-large {
-    width: 100%;
+.placeholder-image-large-hector {
+    background-image: url(images/hmgRunning.jpg);
     height: 100%;
+    width: 100%;
 }
 
 .placeholder-image-large img {
