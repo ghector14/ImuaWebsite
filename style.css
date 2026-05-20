@@ -451,7 +451,6 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 50px;
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -627,19 +626,6 @@ nav {
     position: relative;
 }
 
-.section-title::before {
-    content: '';
-    position: absolute;
-    left: -33px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: #c41e3a;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(196, 30, 58, 0.8);
-}
-
 .story-text {
     font-size: 18px;
     line-height: 1.9;
@@ -677,8 +663,6 @@ nav {
 
 .contact-container {
     max-width: 1200px;
-    width: 100%;
-    padding-top: 50px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 80px;
@@ -1049,10 +1033,6 @@ nav {
    ============================================ */
 @media (max-width: 768px) {
     /* Navigation */
-    nav {
-        padding: 15px 25px;
-    }
-
     .searchInput {
         width: 140px;
         font-size: 13px;
