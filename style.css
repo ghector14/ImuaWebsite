@@ -452,9 +452,7 @@ nav {
     justify-content: center;
     align-items: center;
     padding: 20px 50px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(139, 0, 42, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
